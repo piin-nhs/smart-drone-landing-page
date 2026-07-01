@@ -26,7 +26,7 @@ export function Features() {
   return (
     <section
       id="features"
-      className="py-24 md:py-32 w-full relative overflow-hidden bg-background text-foreground transition-colors duration-300"
+      className="py-24 md:py-32 w-full relative overflow-hidden bg-background text-foreground transition-colors duration-300 "
     >
       <div className="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
         {/* Tiêu đề góc trái trên */}
