@@ -14,3 +14,8 @@ export interface Product {
   createdAt?: string | Date;
   updatedAt?: string | Date;
 }
+
+export interface ProductModalProps {
+  product: Product | null;
+  onClose: () => void;
+}

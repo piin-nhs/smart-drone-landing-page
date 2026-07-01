@@ -15,7 +15,7 @@ export function CartDrawer() {
     clearCart,
   } = useEcom();
 
-  const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
+  const totalItems = cart.length;
   const totalPrice = cart.reduce((total, item) => total + item.product.price * item.quantity, 0);
 
   const formatPrice = (price: number) => {
@@ -36,13 +36,13 @@ export function CartDrawer() {
     <AnimatePresence>
       {isCartOpen && (
         <>
-          {/* Phông nền tối mờ phía sau */}
+          {/* Phông nền mờ */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={() => setIsCartOpen(false)}
-            className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm cursor-pointer"
+            className="fixed inset-0 z-50 bg-black/60 cursor-pointer"
           />
 
           {/* Khung ngăn kéo giỏ hàng chính */}
@@ -51,17 +51,17 @@ export function CartDrawer() {
             animate={{ x: 0 }}
             exit={{ x: "100%" }}
             transition={{ type: "spring", damping: 25, stiffness: 200 }}
-            className="fixed right-0 top-0 bottom-0 z-50 w-full max-w-[420px] bg-card border-l border-card-border shadow-2xl flex flex-col h-full text-foreground"
+            className="fixed right-0 top-0 bottom-0 z-50 w-full sm:max-w-[420px] bg-card border-l border-card-border shadow-2xl flex flex-col h-full text-foreground"
           >
             {/* Tiêu đề giỏ hàng */}
             <div className="p-6 border-b border-card-border flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <ShoppingBag className="w-5 h-5 text-neon-cyan" />
+                <ShoppingBag className="w-5 h-5 text-foreground/75" />
                 <span className="font-bold font-sans tracking-wider text-sm">YOUR CART ({totalItems})</span>
               </div>
               <button
                 onClick={() => setIsCartOpen(false)}
-                className="w-8 h-8 rounded-full flex items-center justify-center border border-foreground/10 hover:border-foreground/25 hover:bg-foreground/5 transition-all cursor-pointer"
+                className="w-8 h-8 rounded-none flex items-center justify-center border border-foreground/10 hover:border-foreground/25 hover:bg-foreground/5 transition-all cursor-pointer"
                 aria-label="Close Cart"
               >
                 <X className="w-4 h-4" />
@@ -72,7 +72,7 @@ export function CartDrawer() {
             <div className="flex-1 overflow-y-auto p-6 flex flex-col gap-6">
               {cart.length === 0 ? (
                 <div className="flex-1 flex flex-col items-center justify-center gap-4 text-center">
-                  <div className="w-16 h-16 rounded-full bg-foreground/5 flex items-center justify-center text-foreground/30">
+                  <div className="w-16 h-16 rounded-none bg-foreground/5 flex items-center justify-center text-foreground/30">
                     <ShoppingBag className="w-8 h-8 stroke-[1.2]" />
                   </div>
                   <div>
@@ -83,7 +83,7 @@ export function CartDrawer() {
                   </div>
                   <button
                     onClick={() => setIsCartOpen(false)}
-                    className="mt-2 px-6 py-2 rounded-full bg-foreground text-background text-xs font-bold tracking-widest hover:opacity-90 transition-all cursor-pointer font-sans"
+                    className="mt-2 px-6 py-2 rounded-none bg-foreground text-background text-xs font-bold tracking-widest hover:opacity-90 transition-all cursor-pointer font-sans"
                   >
                     CONTINUE SHOPPING
                   </button>
@@ -95,7 +95,7 @@ export function CartDrawer() {
                     className="flex gap-4 border-b border-card-border pb-4 last:border-b-0"
                   >
                     {/* Ảnh sản phẩm */}
-                    <div className="relative w-20 h-20 bg-foreground/5 rounded-lg overflow-hidden border border-card-border flex-shrink-0">
+                    <div className="relative w-20 h-20 bg-foreground/5 rounded-none overflow-hidden border border-card-border flex-shrink-0">
                       <Image
                         src={item.product.image}
                         alt={item.product.name}
@@ -118,10 +118,10 @@ export function CartDrawer() {
 
                       {/* Bộ chỉnh số lượng và nút xóa */}
                       <div className="flex items-center justify-between mt-2">
-                        <div className="flex items-center border border-card-border rounded-full p-0.5 bg-background">
+                        <div className="flex items-center border border-card-border rounded-none p-0.5 bg-background">
                           <button
                             onClick={() => updateQuantity(item.product.slug, item.quantity - 1)}
-                            className="w-6 h-6 rounded-full flex items-center justify-center hover:bg-foreground/5 transition-colors cursor-pointer text-foreground/60 hover:text-foreground"
+                            className="w-6 h-6 rounded-none flex items-center justify-center hover:bg-foreground/5 transition-colors cursor-pointer text-foreground/60 hover:text-foreground"
                             aria-label="Decrease quantity"
                           >
                             <Minus className="w-3 h-3" />
@@ -131,7 +131,7 @@ export function CartDrawer() {
                           </span>
                           <button
                             onClick={() => updateQuantity(item.product.slug, item.quantity + 1)}
-                            className="w-6 h-6 rounded-full flex items-center justify-center hover:bg-foreground/5 transition-colors cursor-pointer text-foreground/60 hover:text-foreground"
+                            className="w-6 h-6 rounded-none flex items-center justify-center hover:bg-foreground/5 transition-colors cursor-pointer text-foreground/60 hover:text-foreground"
                             aria-label="Increase quantity"
                           >
                             <Plus className="w-3 h-3" />
@@ -140,7 +140,7 @@ export function CartDrawer() {
 
                         <button
                           onClick={() => removeFromCart(item.product.slug)}
-                          className="text-foreground/45 hover:text-red-500 transition-colors p-1 cursor-pointer"
+                          className="text-foreground/45 hover:text-foreground transition-colors p-1 cursor-pointer"
                           aria-label="Remove item"
                         >
                           <Trash2 className="w-4 h-4 stroke-[1.8]" />
@@ -165,13 +165,13 @@ export function CartDrawer() {
                 <div className="grid grid-cols-2 gap-3 mt-2">
                   <button
                     onClick={clearCart}
-                    className="py-3 px-4 rounded-full border border-foreground/10 hover:border-red-500/20 hover:bg-red-500/5 text-[11px] font-bold tracking-widest text-foreground/60 hover:text-red-500 transition-all cursor-pointer font-sans"
+                    className="py-3 px-4 rounded-none border border-foreground/10 hover:border-foreground hover:bg-foreground/5 text-[11px] font-bold tracking-widest text-foreground/60 hover:text-foreground transition-all cursor-pointer font-sans"
                   >
                     CLEAR ALL
                   </button>
                   <button
                     onClick={handleCheckout}
-                    className="py-3 px-4 rounded-full bg-foreground hover:opacity-90 text-background text-[11px] font-bold tracking-widest transition-all cursor-pointer shadow-lg hover:shadow-xl font-sans"
+                    className="py-3 px-4 rounded-none bg-foreground hover:opacity-90 text-background text-[11px] font-bold tracking-widest transition-all cursor-pointer shadow-lg hover:shadow-xl font-sans"
                   >
                     CHECKOUT
                   </button>

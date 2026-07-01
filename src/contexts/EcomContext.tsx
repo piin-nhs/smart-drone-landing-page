@@ -60,8 +60,6 @@ export function EcomProvider({ children }: { children: React.ReactNode }) {
 
       return [...prevCart, { product, quantity: 1 }];
     });
-
-    setIsCartOpen(true);
   };
 
   // Xóa khỏi giỏ hàng

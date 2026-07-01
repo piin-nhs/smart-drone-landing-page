@@ -1,6 +1,5 @@
 @import "tailwindcss";
 
-/* Kích hoạt class-based Dark Mode cho Tailwind v4 */
 @custom-variant dark (&:where(.dark, .dark *));
 
 html {
@@ -10,10 +9,10 @@ html {
 :root {
   --background: #f8fafc;
   --foreground: #0f172a;
-  
+
   --color-card: #ffffff;
   --color-card-border: #e2e8f0;
-  
+
   --color-neon-cyan: #0891b2;
   --color-neon-blue: #2563eb;
   --color-neon-glow: rgba(8, 145, 178, 0.1);
@@ -23,10 +22,10 @@ html {
 .dark {
   --background: #0b0f19;
   --foreground: #f8fafc;
-  
+
   --color-card: #121826;
   --color-card-border: #1e293b;
-  
+
   --color-neon-cyan: #00f0ff;
   --color-neon-blue: #0072ff;
   --color-neon-glow: rgba(0, 240, 255, 0.2);
@@ -42,7 +41,7 @@ html {
   --color-neon-blue: var(--color-neon-blue);
   --color-neon-glow: var(--color-neon-glow);
   --color-grid-lines: var(--color-grid-lines);
-  
+
   --font-sans: var(--font-geist-sans), "Outfit", "Inter", sans-serif;
   --font-mono: var(--font-geist-mono), monospace;
   --font-bebas: var(--font-bebas-neue), sans-serif;
@@ -56,10 +55,10 @@ body {
   overflow-x: hidden;
 }
 
-/* Các tiện ích vẽ lưới nền công nghệ tương lai */
+/* Các tiện ích vẽ lưới nền */
 .tech-grid-bg {
   background-size: 40px 40px;
-  background-image: 
+  background-image:
     linear-gradient(to right, var(--color-grid-lines) 1px, transparent 1px),
     linear-gradient(to bottom, var(--color-grid-lines) 1px, transparent 1px);
 }
@@ -75,4 +74,41 @@ body {
 .light .glassmorphism {
   background: rgba(255, 255, 255, 0.7);
   border: 1px solid rgba(15, 23, 42, 0.05);
+}
+
+/* Tinh chỉnh thanh cuộn */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.15);
+  border-radius: 0px;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* Hỗ trợ trình duyệt Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 0, 0, 0.15) transparent;
+}
+
+.dark * {
+  scrollbar-color: rgba(255, 255, 255, 0.15) transparent;
 }
