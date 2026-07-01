@@ -5,7 +5,7 @@ import Product from "@/models/Product";
 export async function GET() {
   try {
     await connectDB();
-    const products = await Product.find({ inStock: true }).sort({ category: 1, price: -1 });
+    const products = await Product.find({ inStock: true }).sort({ category: -1, price: -1 });
     
     return NextResponse.json({
       success: true,

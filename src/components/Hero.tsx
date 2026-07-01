@@ -119,10 +119,10 @@ export function Hero() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 0.4 }}
-        className="flex items-center gap-2 relative z-30"
+        className="flex flex-wrap items-center justify-center gap-2 relative z-30"
       >
         <a
-          href="#shop"
+          href="#products"
           className="px-9 py-3 rounded-full border border-foreground/15 hover:border-foreground/35 bg-background/40 hover:bg-foreground/5 text-xs font-bold tracking-widest transition-all duration-300 text-foreground cursor-pointer font-sans"
         >
           Shop Now

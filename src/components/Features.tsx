@@ -26,7 +26,7 @@ export function Features() {
   return (
     <section
       id="features"
-      className="py-24 md:py-32 w-full relative overflow-hidden bg-background text-foreground transition-colors duration-300"
+      className="py-24 md:py-32 w-full relative overflow-hidden bg-background text-foreground transition-colors duration-300 "
     >
       <div className="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
         {/* Tiêu đề góc trái trên */}
@@ -36,27 +36,42 @@ export function Features() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
-            className="text-5xl md:text-7xl font-normal tracking-normal leading-[0.9] uppercase font-bebas"
+            className="text-4xl sm:text-5xl md:text-7xl font-normal tracking-normal leading-[0.9] uppercase font-bebas"
           >
             REDEFINING <br /> FLIGHT PRECISION
           </motion.h2>
         </div>
 
         {/* Khung nội dung chính chia 2 cột */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-12 lg:gap-16 items-center">
           {/* Cột trái: Ảnh Drone (chiếm 5/12 cột) */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 1 }}
-            className="lg:col-span-5 flex justify-center lg:justify-start select-none"
+            className="md:col-span-5 flex justify-center md:justify-start select-none"
           >
-            <motion.div
-              animate={{ y: [0, -10, 0] }}
-              transition={{ repeat: Infinity, duration: 4.5, ease: "easeInOut" }}
-              className="relative w-full max-w-[480px] aspect-square flex items-center justify-center"
-            >
+            <div className="relative w-full max-w-[480px] aspect-square flex items-center justify-center">
+              {/* Vòng tròn Radar HUD quay chậm ở nền */}
+              <div className="absolute inset-2 rounded-full border border-dashed border-foreground/10 animate-[spin_40s_linear_infinite] pointer-events-none" />
+              <div className="absolute inset-8 rounded-full border border-foreground/[0.04] pointer-events-none" />
+              <div className="absolute inset-20 rounded-full border border-foreground/15 border-r-transparent border-l-transparent animate-[spin_15s_linear_infinite] pointer-events-none" />
+              
+              {/* Thước ngắm chữ thập trung tâm */}
+              <div className="absolute w-8 h-[1px] bg-foreground/15 pointer-events-none" />
+              <div className="absolute h-8 w-[1px] bg-foreground/15 pointer-events-none" />
+              
+              {/* Dữ liệu Telemetry giả lập */}
+              <div className="absolute top-4 left-4 text-[9px] font-mono tracking-wider text-foreground/30 leading-relaxed pointer-events-none hidden sm:block text-left">
+                ALT: 154.2 M <br />
+                DIST: 1.28 KM
+              </div>
+              <div className="absolute bottom-4 right-4 text-[9px] font-mono tracking-wider text-foreground/30 leading-relaxed pointer-events-none hidden sm:block text-right">
+                PITCH: +2.4° <br />
+                ROLL: 0.0°
+              </div>
+
               <Image
                 src="/images/features-drone.webp"
                 alt="HeLiFly VeloX Drone"
@@ -64,13 +79,13 @@ export function Features() {
                 height={500}
                 priority
                 unoptimized
-                className="object-contain filter brightness-[1.02]"
+                className="object-contain filter brightness-[1.02] relative z-10"
               />
-            </motion.div>
+            </div>
           </motion.div>
 
           {/* Cột phải: Grid tính năng & Đoạn tổng kết (chiếm 7/12 cột) */}
-          <div className="lg:col-span-7 flex flex-col justify-start">
+          <div className="md:col-span-7 flex flex-col justify-start">
             {/* Grid 2x2 */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-10 md:gap-y-12">
               {features.map((feature, i) => (

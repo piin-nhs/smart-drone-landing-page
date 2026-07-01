@@ -1,16 +1,35 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useTheme } from "@/contexts/ThemeContext";
+import { useEcom } from "@/contexts/EcomContext";
 import { ShoppingBag, Sun, Moon, Menu, X } from "lucide-react";
 import { FiLinkedin, FiGithub, FiFacebook, FiInstagram } from "react-icons/fi";
+import { motion, AnimatePresence } from "framer-motion";
 
 export function Header() {
   const { theme, toggleTheme } = useTheme();
+  const { cart, setIsCartOpen } = useEcom();
+  const totalItems = cart.length;
   const [isVisible, setIsVisible] = useState(true);
   const [isAtTop, setIsAtTop] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  const isInitialMount = useRef(true);
+  const [isBumping, setIsBumping] = useState(false);
+
+  // Tự động đẩy header hiện xuống khi giỏ hàng thay đổi (thêm mới/cập nhật) và tạo hiệu ứng nhịp rung
+  useEffect(() => {
+    if (isInitialMount.current) {
+      isInitialMount.current = false;
+      return;
+    }
+    setIsVisible(true);
+    setIsBumping(true);
+    const timer = setTimeout(() => setIsBumping(false), 1000);
+    return () => clearTimeout(timer);
+  }, [cart]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -98,10 +117,39 @@ export function Header() {
         <div className="flex items-center gap-3 sm:gap-4 z-10">
           {/* Nút Giỏ Hàng Tròn */}
           <button
-            className="w-9 h-9 rounded-full border border-foreground/10 hover:border-foreground/25 hover:bg-foreground/5 flex items-center justify-center transition-all duration-300 cursor-pointer text-foreground"
+            onClick={() => setIsCartOpen(true)}
+            className="w-9 h-9 rounded-full border border-foreground/10 hover:border-foreground/25 hover:bg-foreground/5 flex items-center justify-center transition-all duration-300 cursor-pointer text-foreground relative"
             aria-label="Shopping Cart"
           >
             <ShoppingBag className="w-[17px] h-[17px] stroke-[1.5]" />
+            
+            {totalItems > 0 && (
+              <div className="absolute -top-1.5 -right-1.5 w-[16px] h-[16px] pointer-events-none">
+                {/* Sóng lan tỏa chỉ phát ra từ vòng tròn số */}
+                <AnimatePresence>
+                  {isBumping && (
+                    <motion.span
+                      initial={{ scale: 0.8, opacity: 0.8 }}
+                      animate={{ scale: 2.2, opacity: 0 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 0.9, ease: "easeOut" }}
+                      className="absolute inset-0 rounded-full bg-[#111] dark:bg-white pointer-events-none"
+                    />
+                  )}
+                </AnimatePresence>
+
+                {/* Vòng tròn số chính có hiệu ứng nảy lò xo */}
+                <motion.span
+                  key={totalItems}
+                  initial={{ scale: 0.6, rotate: -15 }}
+                  animate={{ scale: 1.1, rotate: 0 }}
+                  transition={{ type: "spring", stiffness: 180, damping: 12 }}
+                  className="absolute inset-0 bg-[#111] dark:bg-white text-white dark:text-black text-[9px] font-black rounded-full flex items-center justify-center shadow-sm border border-background"
+                >
+                  {totalItems}
+                </motion.span>
+              </div>
+            )}
           </button>
 
           {/* Nút Đổi Theme Tròn trên Desktop */}
