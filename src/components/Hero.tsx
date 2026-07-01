@@ -131,7 +131,7 @@ export function Hero() {
         <a
           href="#features"
           className="w-12 h-12 rounded-full border border-foreground/15 hover:border-foreground/35 bg-background/40 hover:bg-foreground/5 flex items-center justify-center transition-all duration-300 text-foreground cursor-pointer hover:scale-105"
-          aria-label="Xem tính năng"
+          aria-label="View Features"
         >
           <ArrowRight className="w-4 h-4 stroke-[1.8]" />
         </a>

@@ -20,8 +20,8 @@ const bebasNeue = Bebas_Neue({
 });
 
 export const metadata: Metadata = {
-  title: "HeLiFly - Máy Bay Không Người Lái Thông Minh Từ HELICORP",
-  description: "Trải nghiệm thế hệ Smart Drone tiếp theo từ HELICORP. Quay phim 8K siêu nét, thời gian bay vượt trội và kết nối AI thông minh.",
+  title: "HeLiFly - Next-Gen Smart Drone from HELICORP",
+  description: "Experience the next-generation smart drone from HELICORP. 8K Ultra HD video, exceptional flight times, and advanced AI integration.",
 };
 
 export default function RootLayout({
@@ -31,7 +31,7 @@ export default function RootLayout({
 }>) {
   return (
     <html
-      lang="vi"
+      lang="en"
       className={`${geistSans.variable} ${geistMono.variable} ${bebasNeue.variable} h-full antialiased`}
       suppressHydrationWarning
     >

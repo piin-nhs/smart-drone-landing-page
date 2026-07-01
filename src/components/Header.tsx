@@ -42,10 +42,10 @@ export function Header() {
   }, [lastScrollY]);
 
   const navLinks = [
-    { label: "TRANG CHỦ", href: "#hero" },
-    { label: "TÍNH NĂNG NỔI BẬT", href: "#features" },
-    { label: "DANH MỤC SẢN PHẨM", href: "#products" },
-    { label: "HƯỚNG DẪN BAY", href: "#how-to-fly" },
+    { label: "HOME", href: "#hero" },
+    { label: "FEATURES", href: "#features" },
+    { label: "PRODUCTS", href: "#products" },
+    { label: "HOW TO FLY", href: "#how-to-fly" },
   ];
 
   return (
@@ -99,7 +99,7 @@ export function Header() {
           {/* Nút Giỏ Hàng Tròn */}
           <button
             className="w-9 h-9 rounded-full border border-foreground/10 hover:border-foreground/25 hover:bg-foreground/5 flex items-center justify-center transition-all duration-300 cursor-pointer text-foreground"
-            aria-label="Giỏ hàng"
+            aria-label="Shopping Cart"
           >
             <ShoppingBag className="w-[17px] h-[17px] stroke-[1.5]" />
           </button>
@@ -108,7 +108,7 @@ export function Header() {
           <button
             onClick={toggleTheme}
             className="hidden lg:flex w-9 h-9 rounded-full border border-foreground/10 hover:border-foreground/25 hover:bg-foreground/5 items-center justify-center transition-all duration-300 cursor-pointer text-foreground"
-            aria-label="Đổi giao diện"
+            aria-label="Toggle Theme"
           >
             {theme === "light" ? (
               <Moon className="w-[17px] h-[17px] stroke-[1.5]" />
@@ -136,11 +136,11 @@ export function Header() {
 
             {/* Nút Đổi Theme ở cuối menu */}
             <div className="flex items-center justify-between pt-4 mt-2 border-t border-foreground/5">
-              <span className="text-[10px] font-semibold tracking-[0.2em] text-foreground/40 font-sans">CHẾ ĐỘ GIAO DIỆN</span>
+              <span className="text-[10px] font-semibold tracking-[0.2em] text-foreground/40 font-sans">THEME MODE</span>
               <button
                 onClick={toggleTheme}
                 className="w-9 h-9 rounded-full border border-foreground/10 hover:border-foreground/25 hover:bg-foreground/5 flex items-center justify-center transition-all duration-300 cursor-pointer text-foreground"
-                aria-label="Đổi giao diện"
+                aria-label="Toggle Theme"
               >
                 {theme === "light" ? (
                   <Moon className="w-[17px] h-[17px] stroke-[1.5]" />
