@@ -176,6 +176,7 @@ export function Footer() {
                     <button
                       type="submit"
                       disabled={status === "loading"}
+                      data-track-click="footer-subscribe"
                       className="w-full sm:w-auto flex-shrink-0 h-10 px-6 bg-[#111] dark:bg-white text-white dark:text-black font-sans font-bold text-[11px] tracking-widest uppercase hover:bg-foreground/85 dark:hover:bg-foreground/85 transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50 select-none rounded-none"
                     >
                       <span>{status === "loading" ? "ĐANG GỬI..." : "ĐĂNG KÝ"}</span>

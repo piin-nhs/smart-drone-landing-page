@@ -4,6 +4,7 @@ import { Features } from "@/components/Features";
 import { ProductCatalog } from "@/components/ProductCatalog";
 import { CartDrawer } from "@/components/CartDrawer";
 import { Footer } from "@/components/Footer";
+import { BehaviorTracker } from "@/components/BehaviorTracker";
 
 export default function Home() {
   return (
@@ -16,6 +17,7 @@ export default function Home() {
       </main>
       <Footer />
       <CartDrawer />
+      <BehaviorTracker />
     </>
   );
 }
