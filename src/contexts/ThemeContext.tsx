@@ -12,15 +12,13 @@ interface ThemeContextType {
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [theme, setTheme] = useState<Theme>("dark"); // Mặc định là dark cho phù hợp với phong cách cyberpunk/neon
+  const [theme, setTheme] = useState<Theme>("light"); // Mặc định là light
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    // Lấy theme đã lưu hoặc theo cấu hình hệ thống
+    // Lấy theme đã lưu, mặc định là light
     const savedTheme = localStorage.getItem("theme") as Theme | null;
-    const systemTheme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
-    
-    const initialTheme = savedTheme || systemTheme;
+    const initialTheme = savedTheme || "light";
     setTheme(initialTheme);
     
     if (initialTheme === "dark") {

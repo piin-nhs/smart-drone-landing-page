@@ -3,6 +3,10 @@
 /* Kích hoạt class-based Dark Mode cho Tailwind v4 */
 @custom-variant dark (&:where(.dark, .dark *));
 
+html {
+  scroll-behavior: smooth;
+}
+
 :root {
   --background: #f8fafc;
   --foreground: #0f172a;
@@ -41,6 +45,7 @@
   
   --font-sans: var(--font-geist-sans), "Outfit", "Inter", sans-serif;
   --font-mono: var(--font-geist-mono), monospace;
+  --font-bebas: var(--font-bebas-neue), sans-serif;
 }
 
 body {

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Bebas_Neue } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/contexts/ThemeContext";
 
@@ -13,9 +13,15 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const bebasNeue = Bebas_Neue({
+  variable: "--font-bebas-neue",
+  weight: "400",
+  subsets: ["latin"],
+});
+
 export const metadata: Metadata = {
-  title: "HeLiFly - Máy Bay Không Người Lái Thông Minh Từ HELICORP",
-  description: "Trải nghiệm thế hệ Smart Drone tiếp theo từ HELICORP. Quay phim 8K siêu nét, thời gian bay vượt trội và kết nối AI thông minh.",
+  title: "HeLiFly - Next-Gen Smart Drone from HELICORP",
+  description: "Experience the next-generation smart drone from HELICORP. 8K Ultra HD video, exceptional flight times, and advanced AI integration.",
 };
 
 export default function RootLayout({
@@ -25,8 +31,8 @@ export default function RootLayout({
 }>) {
   return (
     <html
-      lang="vi"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      lang="en"
+      className={`${geistSans.variable} ${geistMono.variable} ${bebasNeue.variable} h-full antialiased`}
       suppressHydrationWarning
     >
       <body className="min-h-full flex flex-col bg-background text-foreground transition-colors duration-300">
