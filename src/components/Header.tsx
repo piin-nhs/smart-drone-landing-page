@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { useTheme } from "@/contexts/ThemeContext";
 import { ShoppingBag, Sun, Moon, Menu, X } from "lucide-react";
+import { FiLinkedin, FiGithub, FiFacebook, FiInstagram } from "react-icons/fi";
 
 export function Header() {
   const { theme, toggleTheme } = useTheme();
@@ -112,7 +113,7 @@ export function Header() {
             {theme === "light" ? (
               <Moon className="w-[17px] h-[17px] stroke-[1.5]" />
             ) : (
-              <Sun className="w-[17px] h-[17px] stroke-[1.5] text-neon-cyan" />
+              <Sun className="w-[17px] h-[17px] stroke-[1.5]" />
             )}
           </button>
         </div>
@@ -144,9 +145,49 @@ export function Header() {
                 {theme === "light" ? (
                   <Moon className="w-[17px] h-[17px] stroke-[1.5]" />
                 ) : (
-                  <Sun className="w-[17px] h-[17px] stroke-[1.5] text-neon-cyan" />
+                  <Sun className="w-[17px] h-[17px] stroke-[1.5]" />
                 )}
               </button>
+            </div>
+
+            {/* Mạng xã hội trên Mobile */}
+            <div className="flex items-center justify-center gap-4 pt-4 mt-2 border-t border-foreground/5">
+              <a
+                href="https://www.linkedin.com/in/piin-nhs/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-9 h-9 rounded-full border border-foreground/10 hover:border-foreground/25 flex items-center justify-center transition-all duration-300 text-foreground/60 hover:text-foreground hover:bg-foreground/5"
+                aria-label="LinkedIn"
+              >
+                <FiLinkedin className="w-[15px] h-[15px]" strokeWidth={1.8} />
+              </a>
+              <a
+                href="https://github.com/piin-nhs"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-9 h-9 rounded-full border border-foreground/10 hover:border-foreground/25 flex items-center justify-center transition-all duration-300 text-foreground/60 hover:text-foreground hover:bg-foreground/5"
+                aria-label="GitHub"
+              >
+                <FiGithub className="w-[15px] h-[15px]" strokeWidth={1.8} />
+              </a>
+              <a
+                href="https://www.facebook.com/piin.nhs"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-9 h-9 rounded-full border border-foreground/10 hover:border-foreground/25 flex items-center justify-center transition-all duration-300 text-foreground/60 hover:text-foreground hover:bg-foreground/5"
+                aria-label="Facebook"
+              >
+                <FiFacebook className="w-[15px] h-[15px]" strokeWidth={1.8} />
+              </a>
+              <a
+                href="https://www.instagram.com/piin_nhs/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-9 h-9 rounded-full border border-foreground/10 hover:border-foreground/25 flex items-center justify-center transition-all duration-300 text-foreground/60 hover:text-foreground hover:bg-foreground/5"
+                aria-label="Instagram"
+              >
+                <FiInstagram className="w-[15px] h-[15px]" strokeWidth={1.8} />
+              </a>
             </div>
           </nav>
         </div>
