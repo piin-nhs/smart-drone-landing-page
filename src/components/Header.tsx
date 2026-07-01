@@ -2,11 +2,14 @@
 
 import { useState, useEffect } from "react";
 import { useTheme } from "@/contexts/ThemeContext";
+import { useEcom } from "@/contexts/EcomContext";
 import { ShoppingBag, Sun, Moon, Menu, X } from "lucide-react";
 import { FiLinkedin, FiGithub, FiFacebook, FiInstagram } from "react-icons/fi";
 
 export function Header() {
   const { theme, toggleTheme } = useTheme();
+  const { cart, setIsCartOpen } = useEcom();
+  const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
   const [isVisible, setIsVisible] = useState(true);
   const [isAtTop, setIsAtTop] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
@@ -98,10 +101,16 @@ export function Header() {
         <div className="flex items-center gap-3 sm:gap-4 z-10">
           {/* Nút Giỏ Hàng Tròn */}
           <button
-            className="w-9 h-9 rounded-full border border-foreground/10 hover:border-foreground/25 hover:bg-foreground/5 flex items-center justify-center transition-all duration-300 cursor-pointer text-foreground"
+            onClick={() => setIsCartOpen(true)}
+            className="w-9 h-9 rounded-full border border-foreground/10 hover:border-foreground/25 hover:bg-foreground/5 flex items-center justify-center transition-all duration-300 cursor-pointer text-foreground relative"
             aria-label="Shopping Cart"
           >
             <ShoppingBag className="w-[17px] h-[17px] stroke-[1.5]" />
+            {totalItems > 0 && (
+              <span className="absolute -top-1 -right-1 bg-neon-cyan text-background text-[9px] font-black w-[16px] h-[16px] rounded-full flex items-center justify-center shadow-sm">
+                {totalItems}
+              </span>
+            )}
           </button>
 
           {/* Nút Đổi Theme Tròn trên Desktop */}
