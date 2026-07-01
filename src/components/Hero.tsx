@@ -34,7 +34,7 @@ export function Hero() {
       id="hero"
       className="min-h-[75vh] lg:min-h-screen w-full relative flex flex-col items-center justify-center gap-6 md:gap-12 pt-28 pb-12 overflow-hidden tech-grid-bg"
     >
-      {/* Glow trắng spotlight trung tâm nằm đè lên chữ chìm nhưng ở dưới drone */}
+      {/* Glow trắng spotlight trung tâm */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[320px] md:w-[640px] h-[240px] md:h-[480px] rounded-full pointer-events-none z-10"
         style={{ background: "radial-gradient(ellipse, rgba(255,255,255,0.55) 0%, rgba(255,255,255,0.15) 45%, transparent 70%)" }}
       />
@@ -71,7 +71,7 @@ export function Hero() {
 
       {/* CỤM DRONE TRUNG TÂM */}
       <div className="relative w-full flex flex-col items-center justify-center z-20 px-0">
-        {/* Ảnh Drone bay lơ lửng */}
+        {/* Ảnh Drone */}
         <motion.div
           initial={{ opacity: 0, scale: 0.9, y: 30 }}
           animate={{ opacity: 1, scale: 1, y: [0, -15, 0] }}
@@ -87,11 +87,12 @@ export function Hero() {
           className="relative w-full flex items-center justify-center cursor-pointer select-none"
         >
           <Image
-            src="/images/hero-smart-drone.webp"
+            src="/images/hero-drone.webp"
             alt="PIIN-NHS Smart Drone VeloX"
             width={3200}
             height={720}
             priority
+            unoptimized
             style={{ width: "100%", height: "auto", maxHeight: "65vh", objectFit: "contain" }}
             className="drop-shadow-[0_15px_30px_rgba(0,0,0,0.22)] dark:drop-shadow-[0_15px_35px_rgba(255,255,255,0.45)] filter brightness-105 hover:brightness-110 transition-all duration-300"
           />
