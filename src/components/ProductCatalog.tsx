@@ -128,6 +128,7 @@ export function ProductCatalog() {
                 {/* Hộp chứa ảnh*/}
                 <div
                   onClick={() => setSelectedProduct(product)}
+                  data-track-click="catalog-quick-view"
                   className="relative w-full aspect-square border border-card-border bg-card flex items-center justify-center p-6 select-none overflow-hidden cursor-pointer"
                 >
                   <div className="relative w-full h-full max-w-[200px] transition-transform duration-500 group-hover:scale-105">
@@ -146,6 +147,7 @@ export function ProductCatalog() {
                       e.stopPropagation();
                       toggleFavorite(product);
                     }}
+                    data-track-click="catalog-toggle-favorite"
                     className={`absolute right-3 bottom-3 w-8 h-8 rounded-none border flex items-center justify-center transition-all duration-300 cursor-pointer z-10 bg-background/80 backdrop-blur ${isFav
                       ? "border-red-500/20 text-red-500 fill-red-500 bg-red-500/5"
                       : "border-card-border hover:border-foreground/20 text-foreground/40 hover:text-foreground"
@@ -163,6 +165,7 @@ export function ProductCatalog() {
                         e.stopPropagation();
                         addToCart(product);
                       }}
+                      data-track-click="catalog-add-to-cart"
                       className="w-10 h-10 bg-[#222] dark:bg-[#1a1a1a] hover:bg-foreground hover:text-background text-white flex items-center justify-center cursor-pointer transition-all duration-500 transform -translate-y-8 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 delay-[0ms]"
                       aria-label="Add to cart"
                     >
@@ -174,6 +177,7 @@ export function ProductCatalog() {
                         e.stopPropagation();
                         setSelectedProduct(product);
                       }}
+                      data-track-click="catalog-quick-view"
                       className="w-10 h-10 bg-[#222] dark:bg-[#1a1a1a] hover:bg-foreground hover:text-background text-white flex items-center justify-center cursor-pointer transition-all duration-500 transform -translate-y-8 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 delay-[75ms]"
                       aria-label="Quick view"
                     >
@@ -192,6 +196,7 @@ export function ProductCatalog() {
                   <h5
                     className="font-medium text-[14px] sm:text-[15px] tracking-wide text-foreground mt-0.5 line-clamp-1 hover:underline transition-colors cursor-pointer"
                     onClick={() => setSelectedProduct(product)}
+                    data-track-click="catalog-quick-view"
                   >
                     {product.name}
                   </h5>

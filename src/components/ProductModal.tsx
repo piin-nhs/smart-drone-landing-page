@@ -164,6 +164,7 @@ export function ProductModal({ product, onClose }: ProductModalProps) {
               {/* Nút yêu thích */}
               <button
                 onClick={() => toggleFavorite(product)}
+                data-track-click="modal-toggle-favorite"
                 className={`w-12 h-12 rounded-none border flex items-center justify-center transition-all duration-300 cursor-pointer ${isFav
                   ? "border-red-500/20 bg-red-500/10 text-red-500 hover:bg-red-500/20"
                   : "border-foreground/10 hover:border-foreground/25 hover:bg-foreground/5 text-foreground/60 hover:text-foreground"
@@ -179,6 +180,7 @@ export function ProductModal({ product, onClose }: ProductModalProps) {
                   addToCart(product);
                   onClose();
                 }}
+                data-track-click="modal-add-to-cart"
                 disabled={!product.inStock}
                 className="flex-1 h-12 rounded-none bg-foreground text-background font-bold text-xs tracking-widest hover:opacity-90 transition-all flex items-center justify-center gap-2 shadow-lg disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer font-sans"
               >

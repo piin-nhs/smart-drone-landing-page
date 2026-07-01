@@ -1,11 +1,13 @@
 "use client";
 
 import { useEcom } from "@/contexts/EcomContext";
+import { useToast } from "@/contexts/ToastContext";
 import { X, Plus, Minus, Trash2, ShoppingBag } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 
 export function CartDrawer() {
+  const { showToast } = useToast();
   const {
     cart,
     isCartOpen,
@@ -27,9 +29,9 @@ export function CartDrawer() {
   };
 
   const handleCheckout = () => {
-    alert("Thank you for your order! This is a demo checkout screen.");
     clearCart();
     setIsCartOpen(false);
+    showToast("Đặt hàng thành công! Cảm ơn bạn đã tin tưởng HELICORP.", "success");
   };
 
   return (
@@ -82,7 +84,12 @@ export function CartDrawer() {
                     </p>
                   </div>
                   <button
-                    onClick={() => setIsCartOpen(false)}
+                    onClick={() => {
+                      setIsCartOpen(false);
+                      setTimeout(() => {
+                        document.getElementById("products")?.scrollIntoView({ behavior: "smooth" });
+                      }, 300);
+                    }}
                     className="mt-2 px-6 py-2 rounded-none bg-foreground text-background text-xs font-bold tracking-widest hover:opacity-90 transition-all cursor-pointer font-sans"
                   >
                     CONTINUE SHOPPING
@@ -131,7 +138,8 @@ export function CartDrawer() {
                           </span>
                           <button
                             onClick={() => updateQuantity(item.product.slug, item.quantity + 1)}
-                            className="w-6 h-6 rounded-none flex items-center justify-center hover:bg-foreground/5 transition-colors cursor-pointer text-foreground/60 hover:text-foreground"
+                            disabled={item.quantity >= 999}
+                            className="w-6 h-6 rounded-none flex items-center justify-center hover:bg-foreground/5 transition-colors cursor-pointer text-foreground/60 hover:text-foreground disabled:opacity-30 disabled:cursor-not-allowed"
                             aria-label="Increase quantity"
                           >
                             <Plus className="w-3 h-3" />
@@ -165,12 +173,14 @@ export function CartDrawer() {
                 <div className="grid grid-cols-2 gap-3 mt-2">
                   <button
                     onClick={clearCart}
+                    data-track-click="cart-clear-all"
                     className="py-3 px-4 rounded-none border border-foreground/10 hover:border-foreground hover:bg-foreground/5 text-[11px] font-bold tracking-widest text-foreground/60 hover:text-foreground transition-all cursor-pointer font-sans"
                   >
                     CLEAR ALL
                   </button>
                   <button
                     onClick={handleCheckout}
+                    data-track-click="cart-checkout"
                     className="py-3 px-4 rounded-none bg-foreground hover:opacity-90 text-background text-[11px] font-bold tracking-widest transition-all cursor-pointer shadow-lg hover:shadow-xl font-sans"
                   >
                     CHECKOUT
