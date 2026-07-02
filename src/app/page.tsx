@@ -5,6 +5,7 @@ import { ProductCatalog } from "@/components/ProductCatalog";
 import { CartDrawer } from "@/components/CartDrawer";
 import { Footer } from "@/components/Footer";
 import { BehaviorTracker } from "@/components/BehaviorTracker";
+import { ChatWidget } from "@/components/ChatWidget";
 
 export default function Home() {
   return (
@@ -18,6 +19,7 @@ export default function Home() {
       <Footer />
       <CartDrawer />
       <BehaviorTracker />
+      <ChatWidget />
     </>
   );
 }
