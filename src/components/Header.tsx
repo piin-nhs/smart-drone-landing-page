@@ -17,6 +17,8 @@ export function Header() {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
     const isInitialMount = useRef(true);
+    const isNavScrolling = useRef(false);
+    const navScrollTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
     const [isBumping, setIsBumping] = useState(false);
 
     // Tự động đẩy header hiện xuống khi giỏ hàng thay đổi (thêm mới/cập nhật) và tạo hiệu ứng nhịp rung
@@ -37,6 +39,13 @@ export function Header() {
 
             // Tự động đóng menu thả xuống của mobile khi cuộn trang
             setIsMobileMenuOpen(false);
+
+            // Khi đang cuộn mượt do nav link, giữ header hiển thị
+            if (isNavScrolling.current) {
+                setIsVisible(true);
+                setLastScrollY(currentScrollY);
+                return;
+            }
 
             // Xác định nếu ở sát đỉnh trang
             if (currentScrollY <= 15) {
@@ -91,6 +100,14 @@ export function Header() {
                         <a
                             key={link.href}
                             href={link.href}
+                            onClick={() => {
+                                setIsVisible(true);
+                                isNavScrolling.current = true;
+                                if (navScrollTimer.current) clearTimeout(navScrollTimer.current);
+                                navScrollTimer.current = setTimeout(() => {
+                                    isNavScrolling.current = false;
+                                }, 1100);
+                            }}
                             className="text-[10px] font-semibold tracking-[0.25em] text-foreground/60 hover:text-foreground transition-all duration-300 font-sans whitespace-nowrap"
                         >
                             {link.label}
@@ -175,7 +192,15 @@ export function Header() {
                             <a
                                 key={link.href}
                                 href={link.href}
-                                onClick={() => setIsMobileMenuOpen(false)}
+                                onClick={() => {
+                                    setIsMobileMenuOpen(false);
+                                    setIsVisible(true);
+                                    isNavScrolling.current = true;
+                                    if (navScrollTimer.current) clearTimeout(navScrollTimer.current);
+                                    navScrollTimer.current = setTimeout(() => {
+                                        isNavScrolling.current = false;
+                                    }, 1200);
+                                }}
                                 className="text-[10px] font-semibold tracking-[0.2em] text-foreground/80 hover:text-foreground py-3 transition-colors border-b border-foreground/5 font-sans whitespace-nowrap"
                             >
                                 {link.label}

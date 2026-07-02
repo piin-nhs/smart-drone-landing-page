@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { useEcom } from "@/contexts/EcomContext";
 import { Product } from "@/types";
-import { Heart, ShoppingBag, Eye } from "lucide-react";
+import { Heart, ShoppingBag, Eye, WifiOff } from "lucide-react";
 import Image from "next/image";
 import { ProductModal } from "./ProductModal";
 
@@ -80,20 +80,23 @@ export function ProductCatalog() {
   // Hiển thị nếu gặp lỗi hoặc cơ sở dữ liệu trống
   if (error) {
     return (
-      <section id="products" className="py-24 bg-background text-foreground text-center scroll-mt-24">
-        <div className="max-w-md mx-auto px-6 py-12 border border-red-500/10 bg-red-500/5 rounded-2xl">
-          <h3 className="font-sans font-bold text-red-500 mb-2">DATABASE CONNECTION ERROR</h3>
-          <p className="text-xs text-foreground/60 leading-relaxed mb-6">
-            We couldn't retrieve the products from the MongoDB database. Please trigger the seeding process to populate the collection.
+      <section id="products" className="py-24 bg-background text-foreground text-center scroll-mt-24 flex items-center justify-center min-h-[450px] w-full px-6">
+        <div className="max-w-md w-full mx-auto px-8 py-12 border border-card-border bg-card/40 backdrop-blur-sm shadow-[0_8px_30px_rgb(0,0,0,0.02)] dark:shadow-[0_8px_30px_rgb(0,0,0,0.15)] flex flex-col items-center">
+          <div className="w-12 h-12 rounded-full bg-foreground/5 flex items-center justify-center mb-6">
+            <WifiOff className="w-5 h-5 text-foreground/40" />
+          </div>
+          <h3 className="font-sans font-black tracking-[0.2em] text-xs sm:text-sm uppercase mb-3 text-foreground">
+            KHÔNG THỂ KẾT NỐI HỆ THỐNG
+          </h3>
+          <p className="text-xs text-foreground/50 leading-relaxed max-w-[280px] sm:max-w-xs mx-auto mb-8 font-sans">
+            Máy chủ không phản hồi hoặc kết nối mạng bị gián đoạn. Vui lòng kiểm tra lại đường truyền và thử tải lại trang.
           </p>
-          <a
-            href="/api/seed"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="px-6 py-2.5 rounded-full bg-foreground text-background text-xs font-bold tracking-widest hover:opacity-90 transition-all font-sans"
+          <button
+            onClick={() => window.location.reload()}
+            className="w-full sm:w-auto px-6 sm:px-8 py-3 rounded-none border border-foreground/20 hover:border-foreground bg-transparent hover:bg-foreground hover:text-background text-[10px] sm:text-[11px] font-bold tracking-[0.15em] sm:tracking-[0.2em] transition-all duration-300 font-sans cursor-pointer active:scale-95 uppercase flex items-center justify-center text-center"
           >
-            SEED DATABASE
-          </a>
+            THỬ TẢI LẠI TRANG
+          </button>
         </div>
       </section>
     );

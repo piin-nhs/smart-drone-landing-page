@@ -69,13 +69,13 @@ export function BehaviorTracker() {
           sendBehavior("scroll", { milestone });
 
           if (milestone === 25) {
-            showToast("Khởi đầu hành trình: Bạn đã khám phá 25% nội dung trang web.", "info");
+            showToast("Journey Begins: You have explored 25% of the page.", "info");
           } else if (milestone === 50) {
-            showToast("Trải nghiệm công nghệ: Bạn đã tìm hiểu được 50% tính năng của Drone.", "info");
+            showToast("Technology Uncovered: You have explored 50% of the drone features.", "info");
           } else if (milestone === 75) {
-            showToast("Khám phá chi tiết: Bạn đã đi qua 75% thông số kỹ thuật.", "info");
+            showToast("Deep Dive: You have viewed 75% of the specifications.", "info");
           } else if (milestone === 100) {
-            showToast("Đọc trọn vẹn: Cảm ơn bạn đã khám phá toàn bộ thông tin giới thiệu HELICORP!", "success");
+            showToast("Complete Discovery: Thank you for exploring the entire HELICORP experience!", "success");
           }
         }
       });
@@ -102,9 +102,9 @@ export function BehaviorTracker() {
 
         // Hiển thị Toast thông báo tương tác tương ứng 
         if (label.includes("clear")) {
-          showToast("Đã làm trống giỏ hàng của bạn.", "warning");
+          showToast("Your cart has been cleared.", "warning");
         } else if (label.includes("subscribe")) {
-          showToast("Đang tiến hành đăng ký nhận ưu đãi thành viên...", "info");
+          showToast("Processing your subscription for exclusive member offers...", "info");
         }
       }
     };

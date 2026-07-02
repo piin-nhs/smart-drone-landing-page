@@ -5,10 +5,12 @@ import { motion, AnimatePresence } from "framer-motion";
 import { CheckCircle2, Info, AlertTriangle, X } from "lucide-react";
 
 import type { ToastType, ToastItem, ToastContextType } from "@/types/toast";
+import { useEcom } from "@/contexts/EcomContext";
 
 const ToastContext = createContext<ToastContextType | undefined>(undefined);
 
 export function ToastProvider({ children }: { children: React.ReactNode }) {
+  const { isCartOpen } = useEcom();
   const [toasts, setToasts] = useState<ToastItem[]>([]);
   const [isHeaderVisible, setIsHeaderVisible] = useState(true);
 
@@ -49,7 +51,7 @@ export function ToastProvider({ children }: { children: React.ReactNode }) {
       {children}
 
       {/* Container chứa các Toast */}
-      <div className={`fixed left-4 right-4 sm:left-auto sm:right-6 sm:w-full sm:max-w-[360px] z-[999] flex flex-col gap-3 pointer-events-none transition-all duration-300 ${isHeaderVisible ? "top-24" : "top-6"}`}>
+      <div className={`fixed left-4 right-4 sm:left-auto sm:right-6 sm:w-full sm:max-w-[360px] z-[999] flex flex-col gap-3 pointer-events-none transition-all duration-300 ${isCartOpen ? "top-24" : (isHeaderVisible ? "top-24" : "top-6")}`}>
         <AnimatePresence>
           {toasts.map((toast) => {
             const isSuccess = toast.type === "success";
