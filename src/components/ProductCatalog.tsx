@@ -151,7 +151,7 @@ export function ProductCatalog() {
                       toggleFavorite(product);
                     }}
                     data-track-click="catalog-toggle-favorite"
-                    className={`absolute right-3 bottom-3 w-8 h-8 rounded-none border flex items-center justify-center transition-all duration-300 cursor-pointer z-10 bg-background/80 backdrop-blur ${isFav
+                    className={`absolute right-3 bottom-3 w-8 h-8 rounded-none border flex items-center justify-center transition-[border-color,background-color,color] duration-300 cursor-pointer z-10 bg-background/80 backdrop-blur ${isFav
                       ? "border-red-500/20 text-red-500 fill-red-500 bg-red-500/5"
                       : "border-card-border hover:border-foreground/20 text-foreground/40 hover:text-foreground"
                       }`}
@@ -169,7 +169,7 @@ export function ProductCatalog() {
                         addToCart(product);
                       }}
                       data-track-click="catalog-add-to-cart"
-                      className="w-10 h-10 bg-[#222] dark:bg-[#1a1a1a] hover:bg-foreground hover:text-background text-white flex items-center justify-center cursor-pointer transition-all duration-500 transform -translate-y-8 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 delay-[0ms]"
+                      className="w-10 h-10 bg-[#222] dark:bg-[#1a1a1a] hover:bg-foreground hover:text-background text-white flex items-center justify-center cursor-pointer transition-[transform,opacity,background-color,color] duration-500 transform -translate-y-8 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 delay-[0ms]"
                       aria-label="Add to cart"
                     >
                       <ShoppingBag className="w-4 h-4 stroke-[2]" />
@@ -181,7 +181,7 @@ export function ProductCatalog() {
                         setSelectedProduct(product);
                       }}
                       data-track-click="catalog-quick-view"
-                      className="w-10 h-10 bg-[#222] dark:bg-[#1a1a1a] hover:bg-foreground hover:text-background text-white flex items-center justify-center cursor-pointer transition-all duration-500 transform -translate-y-8 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 delay-[75ms]"
+                      className="w-10 h-10 bg-[#222] dark:bg-[#1a1a1a] hover:bg-foreground hover:text-background text-white flex items-center justify-center cursor-pointer transition-[transform,opacity,background-color,color] duration-500 transform -translate-y-8 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 delay-[75ms]"
                       aria-label="Quick view"
                     >
                       <Eye className="w-4 h-4 stroke-[2]" />
@@ -237,7 +237,7 @@ export function ProductCatalog() {
                       <div
                         key={product.slug}
                         onClick={() => setSelectedProduct(product)}
-                        className="flex items-center gap-4 p-3 border border-card-border rounded-none bg-card hover:bg-foreground/[0.01] hover:border-foreground/15 transition-all cursor-pointer group"
+                        className="flex items-center gap-4 p-3 border border-card-border rounded-none bg-card hover:bg-foreground/[0.01] hover:border-foreground/15 transition-[border-color,background-color] cursor-pointer group"
                       >
                         {/* Container chứa ảnh có xử lý ảnh lỗi bằng React State để xóa hẳn thẻ img khỏi DOM */}
                         <div className="relative w-12 h-12 bg-foreground/5 rounded-none overflow-hidden flex-shrink-0 flex items-center justify-center border border-card-border">
@@ -296,7 +296,7 @@ export function ProductCatalog() {
                       <div
                         key={product.slug}
                         onClick={() => setSelectedProduct(product)}
-                        className="flex items-center gap-4 p-3 border border-card-border rounded-none bg-card hover:bg-foreground/[0.01] hover:border-foreground/15 transition-all cursor-pointer group"
+                        className="flex items-center gap-4 p-3 border border-card-border rounded-none bg-card hover:bg-foreground/[0.01] hover:border-foreground/15 transition-[border-color,background-color] cursor-pointer group"
                       >
                         {/* Container chứa ảnh có xử lý ảnh lỗi bằng React State để xóa hẳn thẻ img khỏi DOM */}
                         <div className="relative w-12 h-12 bg-foreground/5 rounded-none overflow-hidden flex-shrink-0 flex items-center justify-center border border-card-border">
