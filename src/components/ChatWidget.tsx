@@ -336,34 +336,6 @@ export function ChatWidget() {
         >
           {isOpen ? <X className="w-5 h-5" /> : <MessageSquare className="w-5 h-5" />}
         </button>
-
-        {/* Bong bóng nhắc nhở tin nhắn mới từ HeLiBot */}
-        <AnimatePresence>
-          {hasNewMessage && !isOpen && (
-            <motion.div
-              initial={{ opacity: 0, scale: 0.8, x: 20 }}
-              animate={{ opacity: 1, scale: 1, x: 0 }}
-              exit={{ opacity: 0, scale: 0.8, x: 10 }}
-              className="absolute bottom-14 right-0 w-64 bg-card border border-card-border p-3 shadow-xl pointer-events-auto text-left rounded-none font-sans"
-            >
-              <div className="flex items-center gap-2 mb-1">
-                <div className="w-2 h-2 bg-emerald-500 rounded-full animate-ping" />
-                <span className="text-[10px] text-foreground/50 font-bold uppercase tracking-wider">
-                  Trợ lý HeLiBot
-                </span>
-              </div>
-              <p className="text-[11px] text-foreground/80 leading-relaxed">
-                Xin chào! Tôi có thể hỗ trợ Quý khách giải đáp thắc mắc về Drone HeLiFly không?
-              </p>
-              <button
-                onClick={handleOpenChat}
-                className="mt-2 text-[10px] font-bold text-cyan-600 dark:text-cyan-400 hover:underline cursor-pointer flex items-center gap-1"
-              >
-                Trò chuyện ngay &rarr;
-              </button>
-            </motion.div>
-          )}
-        </AnimatePresence>
       </div>
     </div>
   );
