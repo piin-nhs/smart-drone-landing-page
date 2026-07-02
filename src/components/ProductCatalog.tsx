@@ -6,6 +6,7 @@ import { Product } from "@/types";
 import { Heart, ShoppingBag, Eye, WifiOff } from "lucide-react";
 import Image from "next/image";
 import { ProductModal } from "./ProductModal";
+import { motion } from "framer-motion";
 
 export function ProductCatalog() {
   const { addToCart, toggleFavorite, isFavorite, favorites, recentlyViewed } = useEcom();
@@ -110,22 +111,32 @@ export function ProductCatalog() {
       <div className="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
 
         {/* Tiêu đề mục cửa hàng */}
-        <div className="mb-16 md:mb-20 text-left max-w-xl">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.6 }}
+          className="mb-16 md:mb-20 text-left max-w-xl"
+        >
           <h2 className="text-4xl md:text-6xl font-normal tracking-normal leading-[0.9] uppercase font-bebas">
             DISCOVER THE ECOSYSTEM
           </h2>
           <p className="text-xs sm:text-[13px] text-foreground/50 leading-relaxed mt-4 font-sans max-w-sm">
             Equip your flight with the ultimate tech, optimized for flawless control, power, and high-fidelity video.
           </p>
-        </div>
+        </motion.div>
 
         {/* Lưới hiển thị toàn bộ sản phẩm */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-          {products.map((product) => {
+          {products.map((product, idx) => {
             const isFav = isFavorite(product.slug);
             return (
-              <div
+              <motion.div
                 key={product.slug}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-80px" }}
+                transition={{ duration: 0.6, delay: Math.min(idx, 2) * 0.1 }}
                 className="flex flex-col text-left group"
               >
                 {/* Hộp chứa ảnh*/}
@@ -134,7 +145,7 @@ export function ProductCatalog() {
                   data-track-click="catalog-quick-view"
                   className="relative w-full aspect-square border border-card-border bg-card flex items-center justify-center p-6 select-none overflow-hidden cursor-pointer"
                 >
-                  <div className="relative w-full h-full max-w-[200px] transition-transform duration-500 group-hover:scale-105">
+                  <div className="relative w-full h-full max-w-[200px] transition-transform duration-500 ease-out group-hover:scale-105 transform-gpu will-change-transform">
                     <Image
                       src={product.image}
                       alt={product.name}
@@ -151,7 +162,7 @@ export function ProductCatalog() {
                       toggleFavorite(product);
                     }}
                     data-track-click="catalog-toggle-favorite"
-                    className={`absolute right-3 bottom-3 w-8 h-8 rounded-none border flex items-center justify-center transition-[border-color,background-color,color] duration-300 cursor-pointer z-10 bg-background/80 backdrop-blur ${isFav
+                    className={`absolute right-3 bottom-3 w-8 h-8 rounded-none border flex items-center justify-center transition duration-300 cursor-pointer z-10 bg-background/80 backdrop-blur ${isFav
                       ? "border-red-500/20 text-red-500 fill-red-500 bg-red-500/5"
                       : "border-card-border hover:border-foreground/20 text-foreground/40 hover:text-foreground"
                       }`}
@@ -169,7 +180,7 @@ export function ProductCatalog() {
                         addToCart(product);
                       }}
                       data-track-click="catalog-add-to-cart"
-                      className="w-10 h-10 bg-[#222] dark:bg-[#1a1a1a] hover:bg-foreground hover:text-background text-white flex items-center justify-center cursor-pointer transition-[transform,opacity,background-color,color] duration-500 transform -translate-y-8 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 delay-[0ms]"
+                      className="w-10 h-10 bg-[#222] dark:bg-[#1a1a1a] hover:bg-foreground hover:text-background text-white flex items-center justify-center cursor-pointer transition duration-500 transform -translate-y-8 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 delay-[0ms]"
                       aria-label="Add to cart"
                     >
                       <ShoppingBag className="w-4 h-4 stroke-[2]" />
@@ -181,7 +192,7 @@ export function ProductCatalog() {
                         setSelectedProduct(product);
                       }}
                       data-track-click="catalog-quick-view"
-                      className="w-10 h-10 bg-[#222] dark:bg-[#1a1a1a] hover:bg-foreground hover:text-background text-white flex items-center justify-center cursor-pointer transition-[transform,opacity,background-color,color] duration-500 transform -translate-y-8 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 delay-[75ms]"
+                      className="w-10 h-10 bg-[#222] dark:bg-[#1a1a1a] hover:bg-foreground hover:text-background text-white flex items-center justify-center cursor-pointer transition duration-500 transform -translate-y-8 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 delay-[75ms]"
                       aria-label="Quick view"
                     >
                       <Eye className="w-4 h-4 stroke-[2]" />
@@ -215,14 +226,20 @@ export function ProductCatalog() {
                     )}
                   </div>
                 </div>
-              </div>
+              </motion.div>
             );
           })}
         </div>
 
         {/* 3. Phần bổ trợ: Danh sách Yêu thích & Đã xem*/}
         {(favorites.length > 0 || recentlyViewed.length > 0) && (
-          <div className="mt-24 border-t border-card-border pt-16 grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.7 }}
+            className="mt-24 border-t border-card-border pt-16 grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16"
+          >
             {/* Cột trái: Sản phẩm Yêu thích*/}
             <div className="text-left flex flex-col">
               <h4 className="text-sm font-bold tracking-widest uppercase font-sans text-foreground/75 mb-6 flex items-center gap-2">
@@ -237,7 +254,7 @@ export function ProductCatalog() {
                       <div
                         key={product.slug}
                         onClick={() => setSelectedProduct(product)}
-                        className="flex items-center gap-4 p-3 border border-card-border rounded-none bg-card hover:bg-foreground/[0.01] hover:border-foreground/15 transition-[border-color,background-color] cursor-pointer group"
+                        className="flex items-center gap-4 p-3 border border-card-border rounded-none bg-card hover:bg-foreground/[0.01] hover:border-foreground/15 transition cursor-pointer group"
                       >
                         {/* Container chứa ảnh có xử lý ảnh lỗi bằng React State để xóa hẳn thẻ img khỏi DOM */}
                         <div className="relative w-12 h-12 bg-foreground/5 rounded-none overflow-hidden flex-shrink-0 flex items-center justify-center border border-card-border">
@@ -296,7 +313,7 @@ export function ProductCatalog() {
                       <div
                         key={product.slug}
                         onClick={() => setSelectedProduct(product)}
-                        className="flex items-center gap-4 p-3 border border-card-border rounded-none bg-card hover:bg-foreground/[0.01] hover:border-foreground/15 transition-[border-color,background-color] cursor-pointer group"
+                        className="flex items-center gap-4 p-3 border border-card-border rounded-none bg-card hover:bg-foreground/[0.01] hover:border-foreground/15 transition cursor-pointer group"
                       >
                         {/* Container chứa ảnh có xử lý ảnh lỗi bằng React State để xóa hẳn thẻ img khỏi DOM */}
                         <div className="relative w-12 h-12 bg-foreground/5 rounded-none overflow-hidden flex-shrink-0 flex items-center justify-center border border-card-border">
@@ -340,7 +357,7 @@ export function ProductCatalog() {
                 </div>
               )}
             </div>
-          </div>
+          </motion.div>
         )}
 
       </div>

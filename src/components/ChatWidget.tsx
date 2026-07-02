@@ -41,6 +41,20 @@ export function ChatWidget() {
   const [isLoading, setIsLoading] = useState(false);
   const [hasNewMessage, setHasNewMessage] = useState(false);
   const [showScrollTop, setShowScrollTop] = useState(false);
+  const [isInStory, setIsInStory] = useState(false);
+
+  useEffect(() => {
+    const handleStoryState = (e: Event) => {
+      const customEvent = e as CustomEvent;
+      const isStoryActive = !!customEvent.detail?.active;
+      setIsInStory(isStoryActive);
+      if (isStoryActive) {
+        setIsOpen(false);
+      }
+    };
+    window.addEventListener("scrollytelling-state", handleStoryState);
+    return () => window.removeEventListener("scrollytelling-state", handleStoryState);
+  }, []);
 
   // Lắng nghe sự kiện click nút tài liệu để AI tự động trả lời
   useEffect(() => {
@@ -70,7 +84,25 @@ export function ChatWidget() {
   }, []);
 
   const scrollToTop = () => {
+    // Dispatch scroll-to-top-trigger to temporarily collapse Features height
+    window.dispatchEvent(new CustomEvent("scroll-to-top-trigger", { detail: { active: true } }));
+    
     window.scrollTo({ top: 0, behavior: "smooth" });
+    
+    const handleScrollEnd = () => {
+      if (window.scrollY <= 10) {
+        window.dispatchEvent(new CustomEvent("scroll-to-top-trigger", { detail: { active: false } }));
+        window.removeEventListener("scroll", handleScrollEnd);
+      }
+    };
+
+    // Safety timeout to reset height in case scroll ends or is interrupted
+    const timeout = setTimeout(() => {
+      window.dispatchEvent(new CustomEvent("scroll-to-top-trigger", { detail: { active: false } }));
+      window.removeEventListener("scroll", handleScrollEnd);
+    }, 1500);
+
+    window.addEventListener("scroll", handleScrollEnd, { passive: true });
   };
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
@@ -84,16 +116,6 @@ export function ChatWidget() {
     scrollToBottom();
   }, [messages, isLoading]);
 
-  // Hiển thị bong bóng nhắc nhỏ sau 5 giây nếu chưa mở chat lần nào
-  useEffect(() => {
-    const isFirstTime = !sessionStorage.getItem("helibot_opened");
-    if (isFirstTime) {
-      const timer = setTimeout(() => {
-        setHasNewMessage(true);
-      }, 5000);
-      return () => clearTimeout(timer);
-    }
-  }, []);
 
   const handleOpenChat = () => {
     setIsOpen(true);
@@ -177,7 +199,9 @@ export function ChatWidget() {
   if (isCartOpen) return null;
 
   return (
-    <div className="fixed bottom-4 right-4 left-4 sm:left-auto sm:right-6 sm:bottom-6 z-50 flex flex-col items-end pointer-events-none">
+    <div className={`fixed bottom-4 right-4 left-4 sm:left-auto sm:right-6 sm:bottom-6 z-50 flex flex-col items-end pointer-events-none transition-all duration-500 transform ${
+        isInStory ? "opacity-0 translate-y-10 scale-95 pointer-events-none" : "opacity-100 translate-y-0 scale-100"
+      }`}>
       {/* 1. HỘP THOẠI CHAT (CHAT WINDOW) */}
       <AnimatePresence>
         {isOpen && (

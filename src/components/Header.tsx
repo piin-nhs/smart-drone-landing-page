@@ -15,6 +15,16 @@ export function Header() {
     const [isAtTop, setIsAtTop] = useState(true);
     const [lastScrollY, setLastScrollY] = useState(0);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+    const [isInStory, setIsInStory] = useState(false);
+
+    useEffect(() => {
+        const handleStoryState = (e: Event) => {
+            const customEvent = e as CustomEvent;
+            setIsInStory(!!customEvent.detail?.active);
+        };
+        window.addEventListener("scrollytelling-state", handleStoryState);
+        return () => window.removeEventListener("scrollytelling-state", handleStoryState);
+    }, []);
 
     const isInitialMount = useRef(true);
     const isNavScrolling = useRef(false);
@@ -78,7 +88,7 @@ export function Header() {
 
     return (
         <header
-            className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 transform ${isVisible ? "translate-y-0" : "-translate-y-full"
+            className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 transform ${isVisible && !isInStory ? "translate-y-0" : "-translate-y-full"
                 } ${isAtTop && !isMobileMenuOpen
                     ? "bg-transparent py-8 border-b border-transparent"
                     : "bg-background/80 backdrop-blur-md border-b border-foreground/5 py-4 shadow-sm"

@@ -52,7 +52,7 @@ export function Hero() {
             href={social.url}
             target="_blank"
             rel="noopener noreferrer"
-            className="w-9 h-9 rounded-full border border-foreground/10 hover:border-foreground/25 flex items-center justify-center transition-[border-color,background-color,transform] duration-300 text-foreground/60 hover:text-foreground hover:bg-foreground/5 hover:scale-105"
+            className="w-9 h-9 rounded-full border border-foreground/10 hover:border-foreground/25 flex items-center justify-center transition duration-300 text-foreground/60 hover:text-foreground hover:bg-foreground/5 hover:scale-105"
             aria-label={social.name}
           >
             {social.icon}
@@ -74,17 +74,9 @@ export function Hero() {
         {/* Ảnh Drone */}
         <motion.div
           initial={{ opacity: 0, scale: 0.9, y: 30 }}
-          animate={{ opacity: 1, scale: 1, y: [0, -15, 0] }}
-          transition={{
-            opacity: { duration: 1.2 },
-            scale: { duration: 1.2 },
-            y: {
-              repeat: Infinity,
-              duration: 4,
-              ease: "easeInOut"
-            }
-          }}
-          className="relative w-full flex items-center justify-center cursor-pointer select-none"
+          animate={{ opacity: 1, scale: 1, y: 0 }}
+          transition={{ duration: 1.2 }}
+          className="relative w-full flex items-center justify-center cursor-pointer select-none animate-float"
         >
           <Image
             src="/images/hero-drone.webp"
@@ -94,23 +86,13 @@ export function Hero() {
             priority
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
             style={{ width: "100%", height: "auto", maxHeight: "65vh", objectFit: "contain" }}
-            className="drop-shadow-[0_15px_30px_rgba(0,0,0,0.22)] dark:drop-shadow-[0_15px_35px_rgba(255,255,255,0.45)] filter brightness-105 hover:brightness-110 transition-all duration-300"
+            className="drop-shadow-[0_15px_30px_rgba(0,0,0,0.22)] dark:drop-shadow-[0_15px_35px_rgba(255,255,255,0.45)] filter brightness-105 hover:brightness-110 transition-all duration-300 transform-gpu"
           />
         </motion.div>
 
         {/* Bóng mờ 3D dưới mặt đất */}
-        <motion.div
-          animate={{
-            scale: [1, 0.85, 1],
-            opacity: [0.3, 0.12, 0.3],
-            filter: ["blur(8px)", "blur(12px)", "blur(8px)"]
-          }}
-          transition={{
-            repeat: Infinity,
-            duration: 4,
-            ease: "easeInOut"
-          }}
-          className="w-[180px] sm:w-[260px] h-[8px] bg-black/55 dark:bg-cyan-950/55 rounded-full pointer-events-none mt-2 shadow-2xl"
+        <div
+          className="w-[180px] sm:w-[260px] h-[10px] sm:h-[14px] bg-black/20 dark:bg-cyan-950/70 rounded-full pointer-events-none mt-6 blur-[8px] sm:blur-[12px] animate-shadow-pulse"
         />
       </div>
 
@@ -123,14 +105,14 @@ export function Hero() {
       >
         <a
           href="#products"
-          className="px-9 py-3 rounded-full border border-foreground/15 hover:border-foreground/35 bg-background/40 hover:bg-foreground/5 text-xs font-bold tracking-widest transition-[border-color,background-color] duration-300 text-foreground cursor-pointer font-sans"
+          className="px-9 py-3 rounded-full border border-foreground/15 hover:border-foreground/35 bg-background/40 hover:bg-foreground/5 text-xs font-bold tracking-widest transition duration-300 text-foreground cursor-pointer font-sans"
         >
           Shop Now
         </a>
 
         <a
           href="#features"
-          className="w-12 h-12 rounded-full border border-foreground/15 hover:border-foreground/35 bg-background/40 hover:bg-foreground/5 flex items-center justify-center transition-[border-color,background-color,transform] duration-300 text-foreground cursor-pointer hover:scale-105"
+          className="w-12 h-12 rounded-full border border-foreground/15 hover:border-foreground/35 bg-background/40 hover:bg-foreground/5 flex items-center justify-center transition duration-300 text-foreground cursor-pointer hover:scale-105"
           aria-label="View Features"
         >
           <ArrowRight className="w-4 h-4 stroke-[1.8]" />
