@@ -79,8 +79,8 @@ export function HowToFly() {
                     src={lesson.image}
                     alt={lesson.title}
                     fill
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 600px"
                     className="object-contain p-6 sm:p-8 transition-transform duration-700 group-hover:scale-105"
-                    unoptimized
                   />
                   {/* Glowing thin overlay line */}
                   <div className="absolute inset-0 border border-foreground/0 group-hover:border-foreground/10 transition-colors duration-500 pointer-events-none" />

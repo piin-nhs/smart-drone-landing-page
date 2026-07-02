@@ -76,9 +76,9 @@ export function ProductModal({ product, onClose }: ProductModalProps) {
                 src={product.image}
                 alt={product.name}
                 fill
+                sizes="(max-width: 768px) 100vw, 500px"
                 className="object-contain p-4"
                 priority
-                unoptimized
               />
             </div>
           </div>

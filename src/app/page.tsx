@@ -3,10 +3,8 @@ import { Hero } from "@/components/Hero";
 import { Features } from "@/components/Features";
 import { HowToFly } from "@/components/HowToFly";
 import { ProductCatalog } from "@/components/ProductCatalog";
-import { CartDrawer } from "@/components/CartDrawer";
 import { Footer } from "@/components/Footer";
-import { BehaviorTracker } from "@/components/BehaviorTracker";
-import { ChatWidget } from "@/components/ChatWidget";
+import { ClientWidgets } from "@/components/ClientWidgets";
 
 export default function Home() {
   return (
@@ -19,9 +17,7 @@ export default function Home() {
         <ProductCatalog />
       </main>
       <Footer />
-      <CartDrawer />
-      <BehaviorTracker />
-      <ChatWidget />
+      <ClientWidgets />
     </>
   );
 }

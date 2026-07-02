@@ -77,8 +77,7 @@ export function Features() {
                 alt="HeLiFly VeloX Drone"
                 width={500}
                 height={500}
-                priority
-                unoptimized
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 40vw, 500px"
                 className="object-contain filter brightness-[1.02] relative z-10"
               />
             </div>
