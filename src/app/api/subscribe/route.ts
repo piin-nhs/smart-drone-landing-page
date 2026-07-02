@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { connectDB } from "@/utils/db";
 import Contact from "@/models/Contact";
-import { Resend } from "resend";
+import nodemailer from "nodemailer";
 import * as z from "zod";
 
 // Zod Schema để validate dữ liệu ở server
@@ -9,6 +9,15 @@ const subscribeSchema = z.object({
   fullName: z.string().min(2).max(50),
   email: z.string().email(),
   phone: z.string().regex(/^\+?[0-9\s\-()]{7,20}$/),
+});
+
+// Cấu hình Nodemailer transporter với Gmail App Password
+const transporter = nodemailer.createTransport({
+  service: "gmail",
+  auth: {
+    user: process.env.GMAIL_USER,
+    pass: process.env.GMAIL_APP_PASS,
+  },
 });
 
 export async function POST(req: Request) {
@@ -58,7 +67,7 @@ export async function POST(req: Request) {
           embeds: [
             {
               title: "THÀNH VIÊN MỚI ĐĂNG KÝ NHẬN TIN",
-              color: 38233, // Màu Cyan đặc trưng công nghệ
+              color: 38233,
               fields: [
                 { name: "Họ và Tên", value: fullName, inline: true },
                 { name: "Số điện thoại", value: phone, inline: true },
@@ -75,19 +84,18 @@ export async function POST(req: Request) {
       console.log("=> Discord Webhook URL chưa được cấu hình. Bỏ qua.");
     }
 
-    // 4. Kích hoạt tiến trình gửi Dual-Email qua Resend (chờ hoàn thành song song)
-    const resendApiKey = process.env.RESEND_API_KEY;
-    if (resendApiKey) {
-      const resend = new Resend(resendApiKey);
-
+    // 4. Kích hoạt tiến trình gửi Dual-Email qua Nodemailer + Gmail (chờ hoàn thành song song)
+    const gmailUser = process.env.GMAIL_USER;
+    const gmailPass = process.env.GMAIL_APP_PASS;
+    if (gmailUser && gmailPass) {
       await Promise.all([
         // Email 1: Cảm ơn khách hàng kèm mã giảm giá 15%
-        resend.emails.send({
-          from: "HELICORP <onboarding@resend.dev>", // Tên miền Resend thử nghiệm mặc định
+        transporter.sendMail({
+          from: `HELICORP <${gmailUser}>`,
           to: email,
           subject: "[HELICORP] Xác nhận đăng ký thành viên câu lạc bộ",
           html: `
-            <div style="font-family: sans-serif; max-w: 600px; margin: 0 auto; padding: 20px; border: 1px solid #eee;">
+            <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #eee;">
               <h2 style="color: #111; text-transform: uppercase; letter-spacing: 2px;">Chào mừng bạn đến với HELICORP, ${fullName}!</h2>
               <p>Cảm ơn bạn đã đăng ký gia nhập Câu lạc bộ Công nghệ Tương lai của chúng tôi.</p>
               <p>Như đã hứa, dưới đây là mã giảm giá <strong>15%</strong> dành riêng cho đơn hàng đầu tiên của bạn:</p>
@@ -102,9 +110,9 @@ export async function POST(req: Request) {
         }).catch((err) => console.error("Lỗi gửi email cho Khách hàng:", err)),
 
         // Email 2: Thông báo Admin hệ thống
-        resend.emails.send({
-          from: "HELICORP System <onboarding@resend.dev>",
-          to: process.env.ADMIN_EMAIL || email,
+        transporter.sendMail({
+          from: `HELICORP System <${gmailUser}>`,
+          to: gmailUser,
           subject: "[HELICORP Notification] Có thành viên mới đăng ký nhận tin",
           html: `
             <div style="font-family: sans-serif; padding: 20px;">
@@ -132,7 +140,7 @@ export async function POST(req: Request) {
         }).catch((err) => console.error("Lỗi gửi email cho Admin:", err))
       ]);
     } else {
-      console.log("=> Resend API Key chưa được cấu hình. Bỏ qua.");
+      console.log("=> Gmail credentials chưa được cấu hình. Bỏ qua gửi email.");
     }
 
     return NextResponse.json({
