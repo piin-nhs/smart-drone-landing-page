@@ -13,7 +13,7 @@ export function Hero() {
       url: "https://www.linkedin.com/in/piin-nhs/"
     },
     {
-      name: "twitter",
+      name: "github",
       icon: <FiGithub strokeWidth={1.8} className="w-[15px] h-[15px]" />,
       url: "https://github.com/piin-nhs"
     },
@@ -52,7 +52,7 @@ export function Hero() {
             href={social.url}
             target="_blank"
             rel="noopener noreferrer"
-            className="w-9 h-9 rounded-full border border-foreground/10 hover:border-foreground/25 flex items-center justify-center transition-all duration-300 text-foreground/60 hover:text-foreground hover:bg-foreground/5 hover:scale-105"
+            className="w-9 h-9 rounded-full border border-foreground/10 hover:border-foreground/25 flex items-center justify-center transition-[border-color,background-color,transform] duration-300 text-foreground/60 hover:text-foreground hover:bg-foreground/5 hover:scale-105"
             aria-label={social.name}
           >
             {social.icon}
@@ -123,14 +123,14 @@ export function Hero() {
       >
         <a
           href="#products"
-          className="px-9 py-3 rounded-full border border-foreground/15 hover:border-foreground/35 bg-background/40 hover:bg-foreground/5 text-xs font-bold tracking-widest transition-all duration-300 text-foreground cursor-pointer font-sans"
+          className="px-9 py-3 rounded-full border border-foreground/15 hover:border-foreground/35 bg-background/40 hover:bg-foreground/5 text-xs font-bold tracking-widest transition-[border-color,background-color] duration-300 text-foreground cursor-pointer font-sans"
         >
           Shop Now
         </a>
 
         <a
           href="#features"
-          className="w-12 h-12 rounded-full border border-foreground/15 hover:border-foreground/35 bg-background/40 hover:bg-foreground/5 flex items-center justify-center transition-all duration-300 text-foreground cursor-pointer hover:scale-105"
+          className="w-12 h-12 rounded-full border border-foreground/15 hover:border-foreground/35 bg-background/40 hover:bg-foreground/5 flex items-center justify-center transition-[border-color,background-color,transform] duration-300 text-foreground cursor-pointer hover:scale-105"
           aria-label="View Features"
         >
           <ArrowRight className="w-4 h-4 stroke-[1.8]" />

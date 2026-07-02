@@ -79,7 +79,7 @@ export function HowToFly() {
                     src={lesson.image}
                     alt={lesson.title}
                     fill
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 600px"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 450px"
                     className="object-contain p-6 sm:p-8 transition-transform duration-700 group-hover:scale-105"
                   />
                   {/* Glowing thin overlay line */}
