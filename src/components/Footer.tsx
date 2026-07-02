@@ -11,14 +11,14 @@ import { Send, CheckCircle2, AlertTriangle, ShieldCheck } from "lucide-react";
 const subscribeSchema = z.object({
   fullName: z
     .string()
-    .min(2, { message: "Họ tên phải từ 2 ký tự trở lên" })
-    .max(50, { message: "Họ tên không được vượt quá 50 ký tự" }),
+    .min(2, { message: "Full name must be at least 2 characters" })
+    .max(50, { message: "Full name must not exceed 50 characters" }),
   email: z
     .string()
-    .email({ message: "Địa chỉ email không hợp lệ" }),
+    .email({ message: "Invalid email address" }),
   phone: z
     .string()
-    .regex(/^\+?[0-9\s\-()]{7,20}$/, { message: "Số điện thoại không hợp lệ" }),
+    .regex(/^\+?[0-9\s\-()]{7,20}$/, { message: "Invalid phone number" }),
 });
 
 type SubscribeInput = z.infer<typeof subscribeSchema>;
@@ -49,15 +49,15 @@ export function Footer() {
 
       if (res.ok) {
         setStatus("success");
-        setMessage(`Cảm ơn ${data.fullName}! Mã ưu đãi 15% đã được gửi đến ${data.email}.`);
+        setMessage(`Thank you ${data.fullName}! A 15% discount code has been sent to ${data.email}.`);
         reset();
       } else {
         setStatus("error");
-        setMessage(result.message || "Đã xảy ra lỗi. Vui lòng thử lại.");
+        setMessage(result.message || "An error occurred. Please try again.");
       }
     } catch (err) {
       setStatus("error");
-      setMessage("Không thể kết nối đến hệ thống. Vui lòng thử lại.");
+      setMessage("Unable to connect to the server. Please try again.");
     }
   };
 
@@ -80,37 +80,37 @@ export function Footer() {
                 HELI<span className="text-foreground/50">CORP</span>
               </span>
               <p className="mt-4 text-xs sm:text-[13px] text-foreground/50 leading-relaxed max-w-sm">
-                Đơn vị tiên phong cung cấp giải pháp máy bay không người lái thông minh cho tương lai. Tối ưu hóa điều khiển, truyền phát hình ảnh thời gian thực, dẫn đầu công nghệ không gian.
+                Pioneering intelligent drone solutions for the future. Optimizing control, real-time image transmission, and leading aerospace technology.
               </p>
             </div>
 
             {/* Cam kết bảo mật */}
             <div className="mt-8 lg:mt-0 flex items-center gap-2 text-[11px] text-foreground/45 font-sans">
               <ShieldCheck className="w-4 h-4 text-foreground/40" />
-              <span>Dữ liệu của bạn được bảo mật tuyệt đối theo chuẩn AES-256.</span>
+              <span>Your data is securely encrypted using industry-standard AES-256.</span>
             </div>
           </div>
 
           {/* Cột phải: Form Đăng ký nhận tin */}
           <div className="lg:col-span-7 flex flex-col justify-start">
             <h4 className="text-sm font-bold tracking-widest uppercase font-sans text-foreground/80 mb-2">
-              ĐĂNG KÝ NHẬN ƯU ĐÃI ĐỘC QUYỀN
+              SUBSCRIBE TO EXCLUSIVE OFFERS
             </h4>
             <p className="text-xs text-foreground/45 mb-6 leading-relaxed max-w-md">
-              Để lại thông tin để trở thành hội viên danh dự, nhận ngay mã giảm giá **15%** cho đơn hàng đầu tiên và thông tin cập nhật sản phẩm mới nhất.
+              Leave your information to become an honorary member, receive an instant 15% discount code for your first order, and get the latest product updates.
             </p>
 
             {status === "success" ? (
               <div className="p-5 border border-emerald-500/20 bg-emerald-500/5 text-emerald-600 dark:text-emerald-400 flex items-start gap-3 rounded-none animate-fadeIn">
                 <CheckCircle2 className="w-5 h-5 flex-shrink-0 mt-0.5" />
                 <div>
-                  <h5 className="font-bold text-xs tracking-wider uppercase font-sans">ĐĂNG KÝ THÀNH CÔNG!</h5>
+                  <h5 className="font-bold text-xs tracking-wider uppercase font-sans">REGISTRATION SUCCESSFUL!</h5>
                   <p className="text-xs mt-1 leading-relaxed">{message}</p>
                   <button
                     onClick={() => setStatus("idle")}
                     className="mt-3 text-[10px] font-bold tracking-widest uppercase text-foreground hover:underline cursor-pointer"
                   >
-                    Đăng ký email khác
+                    Subscribe with another email
                   </button>
                 </div>
               </div>
@@ -120,11 +120,11 @@ export function Footer() {
                   {/* Trường Họ tên */}
                   <div className="flex flex-col gap-1.5">
                     <label className="text-[10px] font-bold tracking-widest text-foreground/50 uppercase font-sans">
-                      Họ và Tên
+                      Full Name
                     </label>
                     <input
                       type="text"
-                      placeholder="Nguyễn Văn A"
+                      placeholder="Nguyen Hoang Sang"
                       {...register("fullName")}
                       disabled={status === "loading"}
                       className="w-full h-10 px-3 bg-background border border-card-border rounded-none text-xs text-foreground focus:outline-none focus:border-foreground/40 transition-colors disabled:opacity-50 font-sans"
@@ -139,11 +139,11 @@ export function Footer() {
                   {/* Trường Số điện thoại */}
                   <div className="flex flex-col gap-1.5">
                     <label className="text-[10px] font-bold tracking-widest text-foreground/50 uppercase font-sans">
-                      Số điện thoại
+                      Phone Number
                     </label>
                     <input
                       type="text"
-                      placeholder="0901234567"
+                      placeholder="0559496637"
                       {...register("phone")}
                       disabled={status === "loading"}
                       className="w-full h-10 px-3 bg-background border border-card-border rounded-none text-xs text-foreground focus:outline-none focus:border-foreground/40 transition-colors disabled:opacity-50 font-sans"
@@ -159,13 +159,13 @@ export function Footer() {
                 {/* Trường Email */}
                 <div className="flex flex-col gap-1.5">
                   <label className="text-[10px] font-bold tracking-widest text-foreground/50 uppercase font-sans">
-                    Địa chỉ Email
+                    Email Address
                   </label>
                   <div className="flex flex-col sm:flex-row gap-2">
                     <div className="relative w-full sm:flex-1">
                       <input
                         type="text"
-                        placeholder="yourname@gmail.com"
+                        placeholder="yourname@email.com"
                         {...register("email")}
                         disabled={status === "loading"}
                         className="w-full h-10 px-3 bg-background border border-card-border rounded-none text-xs text-foreground focus:outline-none focus:border-foreground/40 transition-colors disabled:opacity-50 font-sans"
@@ -179,7 +179,7 @@ export function Footer() {
                       data-track-click="footer-subscribe"
                       className="w-full sm:w-auto flex-shrink-0 h-10 px-6 bg-[#111] dark:bg-white text-white dark:text-black font-sans font-bold text-[11px] tracking-widest uppercase hover:bg-foreground/85 dark:hover:bg-foreground/85 transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50 select-none rounded-none"
                     >
-                      <span>{status === "loading" ? "ĐANG GỬI..." : "ĐĂNG KÝ"}</span>
+                      <span>{status === "loading" ? "SENDING..." : "SUBSCRIBE"}</span>
                       {status !== "loading" && <Send className="w-3 h-3" />}
                     </button>
                   </div>

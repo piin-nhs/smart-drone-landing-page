@@ -31,7 +31,7 @@ export function CartDrawer() {
   const handleCheckout = () => {
     clearCart();
     setIsCartOpen(false);
-    showToast("Đặt hàng thành công! Cảm ơn bạn đã tin tưởng HELICORP.", "success");
+    showToast("Order successful! Thank you for trusting HELICORP.", "success");
   };
 
   return (

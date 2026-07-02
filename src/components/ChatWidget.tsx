@@ -1,8 +1,9 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import { MessageSquare, X, Send, Bot, Sparkles, User } from "lucide-react";
+import { MessageSquare, X, Send, Bot, Sparkles, User, ArrowUp } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useEcom } from "@/contexts/EcomContext";
 
 type Message = {
   role: "user" | "assistant";
@@ -16,7 +17,19 @@ const SUGGESTIONS = [
   "Drone rẻ nhất là dòng nào?",
 ];
 
+const LOCAL_RESPONSES: Record<string, string> = {
+  "Can you guide me on how to safely unbox and charge the HeLiFly drone?":
+    "To safely unbox and charge your HeLiFly drone, follow these steps:\n\n1. **Unfold the Arms**: Remove the drone from the case and unfold the front arms first, then the rear arms.\n2. **Remove Gimbal Protector**: Always detach the plastic gimbal cover before turning on the power.\n3. **Charge the Battery**: Connect the HeLiPower battery to the USB-C charger. The LEDs will blink and turn solid once fully charged (approx. 60 minutes).\n4. **Power On**: Press the power button once, then press and hold for 2 seconds.",
+  "How do I set up and calibrate the HeLiController remote transmitter?":
+    "To set up and calibrate your HeLiController:\n\n1. **Unfold Antennas**: Extend the antennas and the mobile device holder fully.\n2. **Power On**: Press the remote power button once, then press and hold for 2 seconds.\n3. **Connect Device**: Plug your phone into the remote using the RC cable and launch the FPV app.\n4. **Calibration**: If prompted, enter the settings menu in the app, select Calibration, and follow the on-screen instructions to calibrate the sticks and compass.",
+  "What is the pre-flight checklist and how do I prepare for my first flight?":
+    "Before your first flight, complete this checklist:\n\n1. **Propeller Check**: Ensure all propellers are secured and free of damage.\n2. **GPS Lock**: Place the drone on a flat surface and wait for at least **12 GPS satellites** to lock for a secure Home Point.\n3. **Compass Calibration**: Rotate the drone horizontally and vertically as prompted by the app.\n4. **RTH Altitude**: Set the Return to Home altitude higher than any nearby obstacles (e.g., 50 meters).",
+  "What are the essential drone safety rules and regulations I should follow?":
+    "Always follow these safety essentials:\n\n1. **Visual Line of Sight**: Keep the drone visible to you at all times during flight.\n2. **No-Fly Zones**: Avoid airports, military areas, and temporary flight restrictions (TFR).\n3. **Safe Distance**: Fly at least 30 meters away from people, property, and power lines.\n4. **RTH Security**: In case of low battery or signal loss, the drone will automatically initiate Return to Home (RTH) to land safely at the launch point.",
+};
+
 export function ChatWidget() {
+  const { isCartOpen } = useEcom();
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
     {
@@ -27,6 +40,38 @@ export function ChatWidget() {
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [hasNewMessage, setHasNewMessage] = useState(false);
+  const [showScrollTop, setShowScrollTop] = useState(false);
+
+  // Lắng nghe sự kiện click nút tài liệu để AI tự động trả lời
+  useEffect(() => {
+    const handleOpenHeLiBot = (e: Event) => {
+      const customEvent = e as CustomEvent;
+      const question = customEvent.detail?.question;
+      setIsOpen(true);
+      setHasNewMessage(false);
+      sessionStorage.setItem("helibot_opened", "true");
+      if (question) {
+        setTimeout(() => {
+          handleSendMessage(question);
+        }, 300);
+      }
+    };
+    window.addEventListener("open-helibot", handleOpenHeLiBot);
+    return () => window.removeEventListener("open-helibot", handleOpenHeLiBot);
+  }, [messages, isLoading]);
+
+  // Theo dõi vị trí cuộn trang để hiển thị nút cuộn lên đầu trang
+  useEffect(() => {
+    const handleScrollVisibility = () => {
+      setShowScrollTop(window.scrollY > 400);
+    };
+    window.addEventListener("scroll", handleScrollVisibility, { passive: true });
+    return () => window.removeEventListener("scroll", handleScrollVisibility);
+  }, []);
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
@@ -66,6 +111,19 @@ export function ChatWidget() {
     setMessages(updatedMessages);
     setInput("");
     setIsLoading(true);
+
+    // Kiểm tra câu trả lời cục bộ phản hồi tức thì
+    const localReply = LOCAL_RESPONSES[trimmedText];
+    if (localReply) {
+      setTimeout(() => {
+        setMessages((prev) => [
+          ...prev,
+          { role: "assistant", content: localReply },
+        ]);
+        setIsLoading(false);
+      }, 500);
+      return;
+    }
 
     try {
       // 2. Gửi lịch sử tin nhắn lên API trung gian
@@ -115,6 +173,8 @@ export function ChatWidget() {
       );
     });
   };
+
+  if (isCartOpen) return null;
 
   return (
     <div className="fixed bottom-4 right-4 left-4 sm:left-auto sm:right-6 sm:bottom-6 z-50 flex flex-col items-end pointer-events-none">
@@ -248,6 +308,22 @@ export function ChatWidget() {
               </button>
             </form>
           </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* 1.5 NÚT CUỘN LÊN ĐẦU TRANG (SCROLL TO TOP BUTTON) */}
+      <AnimatePresence>
+        {showScrollTop && (
+          <motion.button
+            initial={{ opacity: 0, scale: 0.8, y: 10 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.8, y: 10 }}
+            onClick={scrollToTop}
+            className="w-12 h-12 mb-3 rounded-none bg-foreground text-background border border-transparent shadow-lg flex items-center justify-center transition-all duration-300 hover:scale-105 active:scale-95 cursor-pointer z-50 pointer-events-auto"
+            title="Cuộn lên đầu trang"
+          >
+            <ArrowUp className="w-5 h-5 stroke-[2.5]" />
+          </motion.button>
         )}
       </AnimatePresence>
 
