@@ -20,10 +20,11 @@ ${productsText}
 
 // Mảng mô hình OpenRouter dự phòng hoạt động ổn định
 const MODEL_FALLBACK_ARRAY = [
-  "openrouter/free",
-  "meta-llama/llama-3.2-3b-instruct:free",
+  "google/gemini-2.5-flash",
+  "google/gemini-2.5-flash:free",
   "meta-llama/llama-3.3-70b-instruct:free",
-  "google/gemma-4-31b-it:free",
+  "meta-llama/llama-3.2-3b-instruct:free",
+  "qwen/qwen-2.5-72b-instruct:free",
 ];
 
 export async function POST(req: Request) {

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { motion } from "framer-motion";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
@@ -70,7 +71,13 @@ export function Footer() {
 
   return (
     <footer className="w-full bg-card border-t border-card-border pt-16 pb-8 transition-colors duration-300 relative z-10 text-left">
-      <div className="max-w-7xl mx-auto px-6 md:px-12">
+      <motion.div
+        initial={{ opacity: 0, y: 35 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-80px" }}
+        transition={{ duration: 0.7, ease: "easeOut" }}
+        className="max-w-7xl mx-auto px-6 md:px-12"
+      >
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 pb-12 border-b border-card-border">
 
           {/* Cột trái: Giới thiệu thương hiệu */}
@@ -222,7 +229,7 @@ export function Footer() {
             ))}
           </div>
         </div>
-      </div>
+      </motion.div>
     </footer>
   );
 }

@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { motion } from "framer-motion";
 
 import { FlightLessonStep } from "@/types";
 
@@ -50,14 +51,20 @@ export function HowToFly() {
 
       <div className="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
         {/* Section Header */}
-        <div className="mb-20 md:mb-28 text-center max-w-2xl mx-auto">
-          <h2 className="font-display font-normal text-4xl sm:text-5xl tracking-tight uppercase mb-4 text-foreground">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.6 }}
+          className="mb-20 md:mb-28 text-center max-w-2xl mx-auto"
+        >
+          <h2 className="font-display font-bold text-4xl sm:text-5xl tracking-tight uppercase mb-4 text-foreground">
             LEARN TO FLY WITH EASE
           </h2>
           <p className="text-xs sm:text-sm text-foreground/50 tracking-wider font-sans uppercase max-w-md mx-auto leading-relaxed">
             Get started with our beginner-friendly guides that walk you through every stage of flight preparation. Learn the basics to fly safely and confidently.
           </p>
-        </div>
+        </motion.div>
 
         {/* Lưới các bước học lái */}
         <div className="flex flex-col gap-24 sm:gap-32">
@@ -70,10 +77,13 @@ export function HowToFly() {
                 className="grid grid-cols-1 md:grid-cols-2 gap-12 sm:gap-20 items-center"
               >
                 {/* Cột Ảnh - Luôn xuất hiện trước trên Mobile */}
-                <div
-                  className={`relative aspect-[4/3] bg-foreground/5 border border-card-border overflow-hidden rounded-none group ${
-                    isEven ? "order-1 md:order-2" : "order-1"
-                  }`}
+                <motion.div
+                  initial={{ opacity: 0, y: 40 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-120px" }}
+                  transition={{ duration: 0.7, ease: "easeOut" }}
+                  className={`relative aspect-[4/3] bg-foreground/5 border border-card-border overflow-hidden rounded-none group ${isEven ? "order-1 md:order-2" : "order-1"
+                    }`}
                 >
                   <Image
                     src={lesson.image}
@@ -84,13 +94,16 @@ export function HowToFly() {
                   />
                   {/* Glowing thin overlay line */}
                   <div className="absolute inset-0 border border-foreground/0 group-hover:border-foreground/10 transition-colors duration-500 pointer-events-none" />
-                </div>
+                </motion.div>
 
                 {/* Cột Chữ */}
-                <div
-                  className={`flex flex-col items-start text-left ${
-                    isEven ? "order-2 md:order-1" : "order-2"
-                  }`}
+                <motion.div
+                  initial={{ opacity: 0, y: 40 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-120px" }}
+                  transition={{ duration: 0.7, ease: "easeOut", delay: 0.1 }}
+                  className={`flex flex-col items-start text-left ${isEven ? "order-2 md:order-1" : "order-2"
+                    }`}
                 >
                   {/* Số thứ tự dạng hộp viền phẳng */}
                   <div className="w-8 h-8 border border-foreground/20 flex items-center justify-center font-display text-xs font-bold tracking-wider mb-6 text-foreground/80 bg-foreground/5 rounded-none">
@@ -118,9 +131,9 @@ export function HowToFly() {
                     }}
                     className="px-6 py-3 rounded-none border border-foreground/20 hover:border-foreground bg-transparent hover:bg-foreground hover:text-background text-[10px] font-bold tracking-[0.25em] transition-all duration-300 font-sans cursor-pointer active:scale-95 uppercase"
                   >
-                    {lesson.actionText} &rarr;
+                    {lesson.actionText}
                   </button>
-                </div>
+                </motion.div>
               </div>
             );
           })}
