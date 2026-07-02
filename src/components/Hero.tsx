@@ -92,7 +92,7 @@ export function Hero() {
             width={3200}
             height={720}
             priority
-            unoptimized
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
             style={{ width: "100%", height: "auto", maxHeight: "65vh", objectFit: "contain" }}
             className="drop-shadow-[0_15px_30px_rgba(0,0,0,0.22)] dark:drop-shadow-[0_15px_35px_rgba(255,255,255,0.45)] filter brightness-105 hover:brightness-110 transition-all duration-300"
           />
