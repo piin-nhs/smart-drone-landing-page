@@ -77,7 +77,7 @@ export function Footer() {
           <div className="lg:col-span-5 flex flex-col justify-between">
             <div>
               <span className="font-sans font-black tracking-[0.15em] text-lg text-foreground">
-                HELI<span className="text-foreground/50">CORP</span>
+                HELI<span className="text-foreground/50">FLY</span>
               </span>
               <p className="mt-4 text-xs sm:text-[13px] text-foreground/50 leading-relaxed max-w-sm">
                 Pioneering intelligent drone solutions for the future. Optimizing control, real-time image transmission, and leading aerospace technology.
@@ -203,7 +203,7 @@ export function Footer() {
         {/* Chân trang bản quyền và liên kết */}
         <div className="mt-8 flex flex-col sm:flex-row items-center justify-between gap-6">
           <div className="text-[11px] text-foreground/40 font-sans">
-            © {new Date().getFullYear()} HELICORP. Crafted by Piin-NHS. All rights reserved.
+            © {new Date().getFullYear()} HELIFLY. Crafted by Piin-NHS. All rights reserved.
           </div>
 
           {/* Cụm mạng xã hội */}

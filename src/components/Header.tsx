@@ -86,12 +86,12 @@ export function Header() {
         >
             <div className="max-w-7xl mx-auto px-6 md:px-12 flex items-center justify-between relative min-h-[40px]">
 
-                {/* Cụm Bên Trái: Logo HELICORP */}
+                {/* Cụm Bên Trái: Logo Helifly */}
                 <a
                     href="#hero"
                     className="text-lg font-black tracking-[0.3em] text-foreground hover:opacity-80 transition-all font-sans select-none z-10 absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 lg:static lg:left-auto lg:top-auto lg:translate-x-0 lg:translate-y-0 whitespace-nowrap max-[300px]:hidden"
                 >
-                    HELICORP
+                    HELIFLY
                 </a>
 
                 {/* Cụm Chính Giữa: Thanh điều hướng trung tâm */}

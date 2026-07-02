@@ -34,7 +34,7 @@ export function ChatWidget() {
   const [messages, setMessages] = useState<Message[]>([
     {
       role: "assistant",
-      content: "Xin chào Quý khách! Tôi là HeLiBot - Trợ lý AI của thương hiệu máy bay không người lái HELICORP. Tôi có thể hỗ trợ thông tin gì về các dòng Drone HeLiFly hay các công nghệ bay cho Quý khách hôm nay?",
+      content: "Xin chào Quý khách! Tôi là HeLiBot - Trợ lý AI của thương hiệu máy bay không người lái HELIFLY. Tôi có thể hỗ trợ thông tin gì về các dòng Drone HeLiFly hay các công nghệ bay cho Quý khách hôm nay?",
     },
   ]);
   const [input, setInput] = useState("");

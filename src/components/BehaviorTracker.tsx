@@ -75,7 +75,7 @@ export function BehaviorTracker() {
           } else if (milestone === 75) {
             showToast("Deep Dive: You have viewed 75% of the specifications.", "info");
           } else if (milestone === 100) {
-            showToast("Complete Discovery: Thank you for exploring the entire HELICORP experience!", "success");
+            showToast("Complete Discovery: Thank you for exploring the entire HELIFLY experience!", "success");
           }
         }
       });

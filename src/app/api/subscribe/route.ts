@@ -75,7 +75,7 @@ export async function POST(req: Request) {
                 { name: "Nguồn", value: "Footer Newsletter Form", inline: true },
               ],
               timestamp: new Date().toISOString(),
-              footer: { text: "HELICORP Telemetry System" },
+              footer: { text: "HELIFLY Telemetry System" },
             },
           ],
         }),
@@ -91,32 +91,32 @@ export async function POST(req: Request) {
       await Promise.all([
         // Email 1: Cảm ơn khách hàng kèm mã giảm giá 15%
         transporter.sendMail({
-          from: `HELICORP <${gmailUser}>`,
+          from: `HELIFLY <${gmailUser}>`,
           to: email,
-          subject: "[HELICORP] Xác nhận đăng ký thành viên câu lạc bộ",
+          subject: "[HELIFLY] Xác nhận đăng ký thành viên câu lạc bộ",
           html: `
             <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #eee;">
-              <h2 style="color: #111; text-transform: uppercase; letter-spacing: 2px;">Chào mừng bạn đến với HELICORP, ${fullName}!</h2>
-              <p>Cảm ơn bạn đã đăng ký gia nhập Câu lạc bộ Công nghệ Tương lai của chúng tôi.</p>
+              <h2 style="color: #111; text-transform: uppercase; letter-spacing: 2px;">Chào mừng bạn đến với HELIFLY, ${fullName}!</h2>
+              <p>Cảm ơn bạn đã đăng ký gia nhập Câu lạc bộ Công nghệ Tương lai của HELIFLY.</p>
               <p>Như đã hứa, dưới đây là mã giảm giá <strong>15%</strong> dành riêng cho đơn hàng đầu tiên của bạn:</p>
               <div style="background: #f4f4f4; padding: 15px; text-align: center; font-size: 20px; font-weight: bold; letter-spacing: 3px; border: 1px dashed #333; margin: 20px 0;">
                 HELIPIONEER15
               </div>
-              <p style="font-size: 12px; color: #666;">* Mã áp dụng cho tất cả sản phẩm Drone và phụ kiện thông minh trên cửa hàng trực tuyến của HELICORP.</p>
+              <p style="font-size: 12px; color: #666;">* Mã áp dụng cho tất cả sản phẩm Drone và phụ kiện thông minh trên cửa hàng trực tuyến của HELIFLY.</p>
               <hr style="border: 0; border-top: 1px solid #eee; margin: 30px 0;" />
-              <p style="font-size: 11px; color: #999; text-align: center;">© ${new Date().getFullYear()} HELICORP. All rights reserved.</p>
+              <p style="font-size: 11px; color: #999; text-align: center;">© ${new Date().getFullYear()} HELIFLY. All rights reserved.</p>
             </div>
           `,
         }).catch((err) => console.error("Lỗi gửi email cho Khách hàng:", err)),
 
         // Email 2: Thông báo Admin hệ thống
         transporter.sendMail({
-          from: `HELICORP System <${gmailUser}>`,
+          from: `HELIFLY System <${gmailUser}>`,
           to: gmailUser,
-          subject: "[HELICORP Notification] Có thành viên mới đăng ký nhận tin",
+          subject: "[HELIFLY Notification] Có thành viên mới đăng ký nhận tin",
           html: `
             <div style="font-family: sans-serif; padding: 20px;">
-              <h3>Hệ thống HELICORP báo cáo thành viên đăng ký mới:</h3>
+              <h3>Hệ thống HELIFLY báo cáo thành viên đăng ký mới:</h3>
               <table style="width: 100%; border-collapse: collapse;">
                 <tr>
                   <td style="padding: 8px; border: 1px solid #ddd; font-weight: bold;">Họ và Tên</td>

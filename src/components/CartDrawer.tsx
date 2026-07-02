@@ -31,7 +31,7 @@ export function CartDrawer() {
   const handleCheckout = () => {
     clearCart();
     setIsCartOpen(false);
-    showToast("Order successful! Thank you for trusting HELICORP.", "success");
+    showToast("Order successful! Thank you for trusting HELIFLY.", "success");
   };
 
   return (
