@@ -13,6 +13,17 @@ export function BehaviorTracker() {
     100: false,
   });
 
+  const isInFeaturesRef = useRef(false);
+
+  useEffect(() => {
+    const handleStoryState = (e: Event) => {
+      const customEvent = e as CustomEvent;
+      isInFeaturesRef.current = !!customEvent.detail?.active;
+    };
+    window.addEventListener("scrollytelling-state", handleStoryState);
+    return () => window.removeEventListener("scrollytelling-state", handleStoryState);
+  }, []);
+
 
   useEffect(() => {
     // Tắt tính năng tự động phục hồi vị trí cuộn sau F5
@@ -68,7 +79,17 @@ export function BehaviorTracker() {
           trackedMilestones.current[milestone] = true;
           sendBehavior("scroll", { milestone });
 
-          // Removed toast notifications to keep screen clean. Database tracking still works silently.
+          if (!isInFeaturesRef.current) {
+            if (milestone === 25) {
+              showToast("Journey Begins: You have explored 25% of the page.", "info");
+            } else if (milestone === 50) {
+              showToast("Technology Uncovered: You have explored 50% of the drone features.", "info");
+            } else if (milestone === 75) {
+              showToast("Deep Dive: You have viewed 75% of the specifications.", "info");
+            } else if (milestone === 100) {
+              showToast("Complete Discovery: Thank you for exploring the entire HELIFLY experience!", "success");
+            }
+          }
         }
       });
     };
