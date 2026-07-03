@@ -1,10 +1,22 @@
+import dynamic from "next/dynamic";
 import { Header } from "@/components/Header";
 import { Hero } from "@/components/Hero";
-import { Features } from "@/components/Features";
-import { HowToFly } from "@/components/HowToFly";
-import { ProductCatalog } from "@/components/ProductCatalog";
-import { Footer } from "@/components/Footer";
-import { ClientWidgets } from "@/components/ClientWidgets";
+
+const Features = dynamic(() => import("@/components/Features").then((mod) => mod.Features), {
+  ssr: false,
+});
+
+const HowToFly = dynamic(() => import("@/components/HowToFly").then((mod) => mod.HowToFly));
+
+const ProductCatalog = dynamic(() => import("@/components/ProductCatalog").then((mod) => mod.ProductCatalog), {
+  ssr: false,
+});
+
+const Footer = dynamic(() => import("@/components/Footer").then((mod) => mod.Footer));
+
+const ClientWidgets = dynamic(() => import("@/components/ClientWidgets").then((mod) => mod.ClientWidgets), {
+  ssr: false,
+});
 
 export default function Home() {
   return (

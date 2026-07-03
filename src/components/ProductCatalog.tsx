@@ -5,7 +5,8 @@ import { useEcom } from "@/contexts/EcomContext";
 import { Product } from "@/types";
 import { Heart, ShoppingBag, Eye, WifiOff } from "lucide-react";
 import Image from "next/image";
-import { ProductModal } from "./ProductModal";
+import dynamic from "next/dynamic";
+const ProductModal = dynamic(() => import("./ProductModal").then((mod) => mod.ProductModal), { ssr: false });
 import { motion } from "framer-motion";
 
 export function ProductCatalog() {
