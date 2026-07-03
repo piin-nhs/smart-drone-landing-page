@@ -13,7 +13,7 @@ export function Header() {
     const totalItems = cart.length;
     const [isVisible, setIsVisible] = useState(true);
     const [isAtTop, setIsAtTop] = useState(true);
-    const [lastScrollY, setLastScrollY] = useState(0);
+    const lastScrollYRef = useRef(0);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [isInStory, setIsInStory] = useState(false);
 
@@ -48,12 +48,12 @@ export function Header() {
             const currentScrollY = window.scrollY;
 
             // Tự động đóng menu thả xuống của mobile khi cuộn trang
-            setIsMobileMenuOpen(false);
+            setIsMobileMenuOpen((prev) => (prev ? false : prev));
 
             // Khi đang cuộn mượt do nav link, giữ header hiển thị
             if (isNavScrolling.current) {
                 setIsVisible(true);
-                setLastScrollY(currentScrollY);
+                lastScrollYRef.current = currentScrollY;
                 return;
             }
 
@@ -65,19 +65,22 @@ export function Header() {
                 setIsAtTop(false);
 
                 // Cuộn xuống -> Ẩn thanh header, Cuộn lên -> Hiện thanh header
-                if (currentScrollY > lastScrollY) {
-                    setIsVisible(false);
-                } else {
-                    setIsVisible(true);
+                const diff = currentScrollY - lastScrollYRef.current;
+                if (Math.abs(diff) > 8) {
+                    if (diff > 0) {
+                        setIsVisible(false);
+                    } else {
+                        setIsVisible(true);
+                    }
                 }
             }
 
-            setLastScrollY(currentScrollY);
+            lastScrollYRef.current = currentScrollY;
         };
 
         window.addEventListener("scroll", handleScroll, { passive: true });
         return () => window.removeEventListener("scroll", handleScroll);
-    }, [lastScrollY]);
+    }, []);
 
     const navLinks = [
         { label: "HOME", href: "#hero" },
@@ -88,7 +91,7 @@ export function Header() {
 
     return (
         <header
-            className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 transform ${isVisible && !isInStory ? "translate-y-0" : "-translate-y-full"
+            className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ease-in-out transform ${isVisible && !isInStory ? "translate-y-0" : "-translate-y-full"
                 } ${isAtTop && !isMobileMenuOpen
                     ? "bg-transparent py-8 border-b border-transparent"
                     : "bg-background/80 backdrop-blur-md border-b border-foreground/5 py-4 shadow-sm"

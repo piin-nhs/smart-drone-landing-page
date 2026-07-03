@@ -15,19 +15,22 @@ export function ToastProvider({ children }: { children: React.ReactNode }) {
   const [isHeaderVisible, setIsHeaderVisible] = useState(true);
 
   React.useEffect(() => {
-    let lastScrollY = window.scrollY;
+    const lastScrollYRef = { current: window.scrollY };
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
       if (currentScrollY <= 15) {
-        setIsHeaderVisible(true);
+        setIsHeaderVisible((prev) => (prev ? prev : true));
       } else {
-        if (currentScrollY > lastScrollY) {
-          setIsHeaderVisible(false);
-        } else {
-          setIsHeaderVisible(true);
+        const diff = currentScrollY - lastScrollYRef.current;
+        if (Math.abs(diff) > 8) {
+          if (diff > 0) {
+            setIsHeaderVisible((prev) => (prev ? false : prev));
+          } else {
+            setIsHeaderVisible((prev) => (prev ? prev : true));
+          }
         }
       }
-      lastScrollY = currentScrollY;
+      lastScrollYRef.current = currentScrollY;
     };
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);

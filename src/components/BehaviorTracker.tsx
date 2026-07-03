@@ -7,9 +7,7 @@ export function BehaviorTracker() {
   const { showToast } = useToast();
   const [sessionId, setSessionId] = useState("");
   const trackedMilestones = useRef<Record<number, boolean>>({
-    25: false,
     50: false,
-    75: false,
     100: false,
   });
 
@@ -72,7 +70,7 @@ export function BehaviorTracker() {
       const scrollPercent = Math.round((window.scrollY / docHeight) * 100);
 
       // Định nghĩa các mốc cột mốc
-      const milestones = [25, 50, 75, 100];
+      const milestones = [50, 100];
 
       milestones.forEach((milestone) => {
         if (scrollPercent >= milestone && !trackedMilestones.current[milestone]) {
@@ -80,12 +78,8 @@ export function BehaviorTracker() {
           sendBehavior("scroll", { milestone });
 
           if (!isInFeaturesRef.current) {
-            if (milestone === 25) {
-              showToast("Journey Begins: You have explored 25% of the page.", "info");
-            } else if (milestone === 50) {
+            if (milestone === 50) {
               showToast("Technology Uncovered: You have explored 50% of the drone features.", "info");
-            } else if (milestone === 75) {
-              showToast("Deep Dive: You have viewed 75% of the specifications.", "info");
             } else if (milestone === 100) {
               showToast("Complete Discovery: Thank you for exploring the entire HELIFLY experience!", "success");
             }

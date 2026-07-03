@@ -77,7 +77,11 @@ export function ChatWidget() {
   // Theo dõi vị trí cuộn trang để hiển thị nút cuộn lên đầu trang
   useEffect(() => {
     const handleScrollVisibility = () => {
-      setShowScrollTop(window.scrollY > 400);
+      const isPastLimit = window.scrollY > 400;
+      setShowScrollTop((prev) => {
+        if (prev !== isPastLimit) return isPastLimit;
+        return prev;
+      });
     };
     window.addEventListener("scroll", handleScrollVisibility, { passive: true });
     return () => window.removeEventListener("scroll", handleScrollVisibility);
