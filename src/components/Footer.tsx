@@ -108,14 +108,14 @@ export function Footer() {
             </p>
 
             {status === "success" ? (
-              <div className="p-5 border border-emerald-500/20 bg-emerald-500/5 text-emerald-600 dark:text-emerald-400 flex items-start gap-3 rounded-none animate-fadeIn">
+              <div className="p-5 border border-emerald-500/20 bg-emerald-500/5 text-emerald-600 dark:text-emerald-400 flex items-start gap-3 rounded-none animate-fadeIn w-full">
                 <CheckCircle2 className="w-5 h-5 flex-shrink-0 mt-0.5" />
-                <div>
-                  <h5 className="font-bold text-xs tracking-wider uppercase font-sans">REGISTRATION SUCCESSFUL!</h5>
-                  <p className="text-xs mt-1 leading-relaxed">{message}</p>
+                <div className="min-w-0 flex-1 text-left">
+                  <h5 className="font-bold text-xs tracking-wider uppercase font-sans whitespace-normal break-words">REGISTRATION SUCCESSFUL!</h5>
+                  <p className="text-xs mt-1 leading-relaxed break-words">{message}</p>
                   <button
                     onClick={() => setStatus("idle")}
-                    className="mt-3 text-[10px] font-bold tracking-widest uppercase text-foreground hover:underline cursor-pointer"
+                    className="mt-3 text-[10px] font-bold tracking-widest uppercase text-foreground hover:underline cursor-pointer whitespace-normal break-words text-left"
                   >
                     Subscribe with another email
                   </button>
