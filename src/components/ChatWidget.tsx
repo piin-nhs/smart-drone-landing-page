@@ -4,11 +4,8 @@ import { useState, useRef, useEffect } from "react";
 import { MessageSquare, X, Send, Bot, Sparkles, User, ArrowUp } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useEcom } from "@/contexts/EcomContext";
+import { Message } from "@/types";
 
-type Message = {
-  role: "user" | "assistant";
-  content: string;
-};
 
 const SUGGESTIONS = [
   "Tư vấn HeLiFly X3 Max",

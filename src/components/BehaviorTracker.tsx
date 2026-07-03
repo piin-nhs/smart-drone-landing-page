@@ -112,6 +112,16 @@ export function BehaviorTracker() {
           showToast("Your cart has been cleared.", "warning");
         } else if (label.includes("subscribe")) {
           showToast("Processing your subscription for exclusive member offers...", "info");
+        } else if (label.includes("add-to-cart")) {
+          showToast(`Added item to cart. Telemetry tracked: "${label}"`, "success");
+        } else if (label.includes("favorite")) {
+          showToast(`Toggled favorite status. Telemetry tracked: "${label}"`, "info");
+        } else if (label.includes("quick-view")) {
+          showToast(`Opened quick view modal. Telemetry tracked: "${label}"`, "info");
+        } else if (label.includes("checkout")) {
+          showToast(`Redirecting to checkout. Telemetry tracked: "${label}"`, "success");
+        } else {
+          showToast(`Click event tracked: "${label}"`, "info");
         }
       }
     };

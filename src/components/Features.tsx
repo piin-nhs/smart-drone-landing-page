@@ -3,11 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
-
-type FeatureItem = {
-  title: string;
-  desc: string;
-};
+import { FeatureItem, TelemetryData } from "@/types";
 
 const FEATURES_DATA: FeatureItem[] = [
   {
@@ -28,12 +24,7 @@ const FEATURES_DATA: FeatureItem[] = [
   }
 ];
 
-type TelemetryData = {
-  topLeft: string;
-  topRight: string;
-  bottomLeft: string;
-  bottomRight: string;
-};
+
 
 const BASE_TELEMETRY: TelemetryData = {
   topLeft: "BATT: 98%\nCELLS: 4S LIPO",
