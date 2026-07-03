@@ -134,7 +134,7 @@ export function Footer() {
                       placeholder="Nguyen Hoang Sang"
                       {...register("fullName")}
                       disabled={status === "loading"}
-                      className="w-full h-10 px-3 bg-background border border-card-border rounded-none text-xs text-foreground focus:outline-none focus:border-foreground/40 transition-colors disabled:opacity-50 font-sans"
+                      className="w-full h-10 px-3 bg-background border border-card-border rounded-none text-base sm:text-xs text-foreground focus:outline-none focus:border-foreground/40 transition-colors disabled:opacity-50 font-sans"
                     />
                     {errors.fullName && (
                       <span className="text-[10px] font-bold text-red-500 mt-1 flex items-center gap-1 font-sans">
@@ -153,7 +153,7 @@ export function Footer() {
                       placeholder="0559496637"
                       {...register("phone")}
                       disabled={status === "loading"}
-                      className="w-full h-10 px-3 bg-background border border-card-border rounded-none text-xs text-foreground focus:outline-none focus:border-foreground/40 transition-colors disabled:opacity-50 font-sans"
+                      className="w-full h-10 px-3 bg-background border border-card-border rounded-none text-base sm:text-xs text-foreground focus:outline-none focus:border-foreground/40 transition-colors disabled:opacity-50 font-sans"
                     />
                     {errors.phone && (
                       <span className="text-[10px] font-bold text-red-500 mt-1 flex items-center gap-1 font-sans">
@@ -175,7 +175,7 @@ export function Footer() {
                         placeholder="yourname@email.com"
                         {...register("email")}
                         disabled={status === "loading"}
-                        className="w-full h-10 px-3 bg-background border border-card-border rounded-none text-xs text-foreground focus:outline-none focus:border-foreground/40 transition-colors disabled:opacity-50 font-sans"
+                        className="w-full h-10 px-3 bg-background border border-card-border rounded-none text-base sm:text-xs text-foreground focus:outline-none focus:border-foreground/40 transition-colors disabled:opacity-50 font-sans"
                       />
                     </div>
 
