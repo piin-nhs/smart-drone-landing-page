@@ -324,7 +324,7 @@ export function ChatWidget() {
                 onChange={(e) => setInput(e.target.value)}
                 placeholder="Nhập tin nhắn..."
                 disabled={isLoading}
-                className="flex-1 h-10 px-3 bg-background border border-card-border text-base sm:text-xs text-foreground focus:outline-none focus:border-foreground/30 disabled:opacity-50 font-sans"
+                className="flex-1 h-10 px-3 bg-background border border-card-border text-base sm:text-xs placeholder:text-[11px] sm:placeholder:text-xs text-foreground focus:outline-none focus:border-foreground/30 disabled:opacity-50 font-sans"
               />
               <button
                 type="submit"
