@@ -37,7 +37,7 @@ export function ProductModal({ product, onClose }: ProductModalProps) {
 
   return (
     <AnimatePresence>
-      <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 overflow-y-auto">
+      <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 overflow-y-auto">
         {/* Phông nền mờ*/}
         <motion.div
           initial={{ opacity: 0 }}
@@ -58,16 +58,16 @@ export function ProductModal({ product, onClose }: ProductModalProps) {
           {/* Nút đóng ở góc trên bên phải */}
           <button
             onClick={onClose}
-            className="absolute top-4 right-4 z-20 w-8 h-8 rounded-none bg-background/80 backdrop-blur border border-foreground/10 hover:border-foreground/25 hover:bg-foreground/5 flex items-center justify-center transition-all cursor-pointer"
+            className="absolute top-3 right-3 sm:top-4 sm:right-4 z-20 w-8 h-8 rounded-none bg-background/80 backdrop-blur border border-foreground/10 hover:border-foreground/25 hover:bg-foreground/5 flex items-center justify-center transition-all cursor-pointer"
             aria-label="Close details"
           >
             <X className="w-4 h-4" />
           </button>
 
           {/* Cột Bên Trái: Ảnh sản phẩm lớn */}
-          <div className="w-full md:w-1/2 bg-foreground/[0.02] dark:bg-foreground/[0.01] flex items-center justify-center p-8 border-b md:border-b-0 md:border-r border-card-border select-none relative min-h-[260px] md:min-h-0">
+          <div className="w-full md:w-1/2 bg-foreground/[0.02] dark:bg-foreground/[0.01] flex items-center justify-center p-4 sm:p-8 border-b md:border-b-0 md:border-r border-card-border select-none relative min-h-[260px] md:min-h-0">
             {hasDiscount && (
-              <span className="absolute top-6 left-6 bg-[#111] dark:bg-white text-white dark:text-black text-[10px] font-black tracking-widest px-2.5 py-1 rounded-none shadow-sm z-10 border border-card-border">
+              <span className="absolute top-3 left-3 sm:top-6 sm:left-6 bg-[#111] dark:bg-white text-white dark:text-black text-[10px] font-black tracking-widest px-2.5 py-1 rounded-none shadow-sm z-10 border border-card-border">
                 SAVE {discountPercentage}%
               </span>
             )}
@@ -84,7 +84,7 @@ export function ProductModal({ product, onClose }: ProductModalProps) {
           </div>
 
           {/* Cột Bên Phải: Thông tin chi tiết */}
-          <div className="w-full md:w-1/2 p-6 sm:p-8 overflow-y-auto flex flex-col justify-between max-h-[50vh] md:max-h-none">
+          <div className="w-full md:w-1/2 p-3 sm:p-6 md:p-8 overflow-y-auto flex flex-col justify-between max-h-[50vh] md:max-h-none">
             <div className="text-left flex flex-col gap-4">
               {/* Phân loại */}
               <span className="text-[10px] font-bold tracking-[0.25em] text-foreground/60 uppercase font-sans">
@@ -92,17 +92,17 @@ export function ProductModal({ product, onClose }: ProductModalProps) {
               </span>
 
               {/* Tên sản phẩm */}
-              <h2 className="text-2xl font-black font-sans leading-tight tracking-wide">
+              <h2 className="text-sm sm:text-lg md:text-2xl font-black font-sans leading-tight tracking-wide">
                 {product.name}
               </h2>
 
               {/* Giá bán */}
               <div className="flex items-baseline gap-3 flex-wrap">
-                <span className="text-xl font-black text-foreground">
+                <span className="text-sm sm:text-lg md:text-xl font-black text-foreground">
                   {formatPrice(product.price)}
                 </span>
                 {hasDiscount && (
-                  <span className="text-sm text-foreground/40 line-through font-medium">
+                  <span className="text-xs sm:text-sm text-foreground/40 line-through font-medium">
                     {formatPrice(product.originalPrice!)}
                   </span>
                 )}
@@ -136,18 +136,18 @@ export function ProductModal({ product, onClose }: ProductModalProps) {
                   <h4 className="text-[11px] font-black tracking-wider uppercase font-sans text-foreground/75 mb-2.5">
                     TECHNICAL SPECIFICATIONS
                   </h4>
-                  <div className="border border-card-border rounded-none overflow-hidden">
-                    <table className="w-full text-xs">
+                  <div className="border border-card-border rounded-none overflow-x-auto custom-scrollbar">
+                    <table className="w-full text-xs min-w-[280px]">
                       <tbody>
                         {Object.entries(product.specs).map(([key, val], idx) => (
                           <tr
                             key={key}
                             className="border-b border-card-border last:border-b-0 hover:bg-foreground/[0.01] transition-colors"
                           >
-                            <td className="p-3 font-semibold text-foreground/60 w-1/3 bg-foreground/[0.01] border-r border-card-border text-left">
+                            <td className="p-2 sm:p-3 font-semibold text-foreground/60 w-1/3 bg-foreground/[0.01] border-r border-card-border text-left text-[11px] sm:text-xs">
                               {key}
                             </td>
-                            <td className="p-3 text-foreground/80 font-medium text-left">
+                            <td className="p-2 sm:p-3 text-foreground/80 font-medium text-left text-[11px] sm:text-xs">
                               {val}
                             </td>
                           </tr>
@@ -160,20 +160,7 @@ export function ProductModal({ product, onClose }: ProductModalProps) {
             </div>
 
             {/* Cụm nút bấm ở chân Modal */}
-            <div className="flex gap-3 mt-1 pt-6">
-              {/* Nút yêu thích */}
-              <button
-                onClick={() => toggleFavorite(product)}
-                data-track-click="modal-toggle-favorite"
-                className={`w-12 h-12 rounded-none border flex items-center justify-center transition-all duration-300 cursor-pointer ${isFav
-                  ? "border-red-500/20 bg-red-500/10 text-red-500 hover:bg-red-500/20"
-                  : "border-foreground/10 hover:border-foreground/25 hover:bg-foreground/5 text-foreground/60 hover:text-foreground"
-                  }`}
-                aria-label="Add to favorites"
-              >
-                <Heart className={`w-5 h-5 ${isFav ? "fill-current" : ""}`} />
-              </button>
-
+            <div className="flex flex-col sm:flex-row gap-3 mt-3 pt-6 border-t border-card-border">
               {/* Nút Thêm vào giỏ hàng */}
               <button
                 onClick={() => {
@@ -182,10 +169,26 @@ export function ProductModal({ product, onClose }: ProductModalProps) {
                 }}
                 data-track-click="modal-add-to-cart"
                 disabled={!product.inStock}
-                className="flex-1 h-12 rounded-none bg-foreground text-background font-bold text-xs tracking-widest hover:opacity-90 transition-all flex items-center justify-center gap-2 shadow-lg disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer font-sans"
+                className="w-full sm:flex-1 h-12 rounded-none bg-foreground text-background font-bold text-[10px] sm:text-xs tracking-normal sm:tracking-widest hover:opacity-90 transition-all flex items-center justify-center gap-2 shadow-lg disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer font-sans whitespace-nowrap"
               >
                 <ShoppingBag className="w-4 h-4" />
                 {product.inStock ? "ADD TO CART" : "OUT OF STOCK"}
+              </button>
+
+              {/* Nút yêu thích */}
+              <button
+                onClick={() => toggleFavorite(product)}
+                data-track-click="modal-toggle-favorite"
+                className={`w-full sm:w-12 h-12 rounded-none border flex items-center justify-center transition-all duration-300 cursor-pointer ${isFav
+                  ? "border-red-500/20 bg-red-500/10 text-red-500 hover:bg-red-500/20"
+                  : "border-foreground/10 hover:border-foreground/25 hover:bg-foreground/5 text-foreground/60 hover:text-foreground"
+                  }`}
+                aria-label="Add to favorites"
+              >
+                <Heart className={`w-5 h-5 ${isFav ? "fill-current" : ""}`} />
+                <span className="sm:hidden ml-2 text-[10px] font-bold tracking-normal sm:tracking-widest font-sans">
+                  {isFav ? "REMOVE FROM FAVORITES" : "ADD TO FAVORITES"}
+                </span>
               </button>
             </div>
           </div>
