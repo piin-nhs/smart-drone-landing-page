@@ -50,6 +50,14 @@ export function Header() {
             // Tự động đóng menu thả xuống của mobile khi cuộn trang
             setIsMobileMenuOpen((prev) => (prev ? false : prev));
 
+            // Trên mobile, giữ header luôn hiển thị (không ẩn khi cuộn)
+            if (window.innerWidth < 768) {
+                setIsVisible(true);
+                setIsAtTop(currentScrollY <= 15);
+                lastScrollYRef.current = currentScrollY;
+                return;
+            }
+
             // Khi đang cuộn mượt do nav link, giữ header hiển thị
             if (isNavScrolling.current) {
                 setIsVisible(true);

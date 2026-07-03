@@ -18,6 +18,14 @@ export function ToastProvider({ children }: { children: React.ReactNode }) {
     const lastScrollYRef = { current: window.scrollY };
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
+
+      // Trên mobile, giữ header luôn hiển thị
+      if (window.innerWidth < 768) {
+        setIsHeaderVisible((prev) => (prev ? prev : true));
+        lastScrollYRef.current = currentScrollY;
+        return;
+      }
+
       if (currentScrollY <= 15) {
         setIsHeaderVisible((prev) => (prev ? prev : true));
       } else {
